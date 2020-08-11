@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Cup Winners</title>
+</head>
+<body>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <div id="container" width=800 height=300></div>    
+    <script>
+        var containerWidth = +d3.select('#container').attr('width');
+        var containerHeight = +d3.select('#container').attr('height');
+        var margin = {top:20, bottom:20, left:60, right:10};
+        var width = containerWidth - margin.left - margin.right;
+        var height = containerHeight - margin.top - margin.bottom;
+        
+        var x = d3.scaleLinear().range([0, width]);
+        var y = d3.scaleBand().range([height, 0]).padding(0.1);
+
+        var svg = d3.select("#container").append('svg').attr('id', 'svg').attr('width', containerWidth).attr('height', containerWidth);
+        
+        d3.json('data.json')
+        .then((data)=>{
+            var data = Object.values(data.worldCupWinners);
+            x.domain([0, d3.max(data, d=>{return d.titles})]);
+            y.domain(data.map(d=>{return d.country}));
+            
+            var bars = svg.append('g').attr('id', 'barGroup').attr('class', 'bars gorup').attr('transform', `translate(${margin.left}, ${0})`);
+            bars.selectAll('rect').data(data).enter()
+                .append('rect').attr('class', 'bar')
+                .attr('x', x(0))
+                .attr("y", function(d) { return y(d.country); })
+                .attr("width", function(d) { return x(d.titles); })
+                .attr("height", y.bandwidth() )
+                .attr("fill", "#69b3a2")
+
+            var axisGroup = svg.append('g').attr('id', 'axisGroup').attr('transform', `translate(${margin.left}, ${0})`);
+            var xAxisGroup = axisGroup.append('g').attr('id', 'xAxisGroup').attr('class', 'axis x axisGroup').attr('transform', `translate(${0}, ${height})`)
+            var yAxisGroup = axisGroup.append('g').attr('id', 'yAxisGroup').attr('class', 'axis y axisGroup');
+
+            xAxisGroup.call(d3.axisBottom(x)).select('.domain').remove();
+            yAxisGroup.call(d3.axisLeft(y));
+
+        }).catch((error) => {
+    		throw error;
+        });
+    </script>
+</body>
+</html>
