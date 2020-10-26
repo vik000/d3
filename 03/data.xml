@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+  <row>
+    <country>Brazil</country>
+    <titles>5</titles>
+  </row>
+  <row>
+    <country>Germany</country>
+    <titles>4</titles>
+  </row>
+  <row>
+    <country>Italy</country>
+    <titles>4</titles>
+  </row>
+  <row>
+    <country>Argentina</country>
+    <titles>2</titles>
+  </row>
+  <row>
+    <country>Uruguay</country>
+    <titles>2</titles>
+  </row>
+  <row>
+    <country>France</country>
+    <titles>2</titles>
+  </row>
+  <row>
+    <country>England</country>
+    <titles>1</titles>
+  </row>
+  <row>
+    <country>Spain</country>
+    <titles>1</titles>
+  </row>
+</root>

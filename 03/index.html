@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting data</title>
+</head>
+<body>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <div id="json-example"></div>
+    <div id="csv-example"></div>
+    <div id="tsv-example"></div>
+    <div id="xml-example"></div>
+
+    <script>
+        d3.json('data.json').then(data=>{
+            var div = d3.select("#json-example").append('div');
+            div.append('h1').text('Json');
+            Object.values(data).forEach(d=>{
+                var p = div.append("p");
+                p.text(`${d.country}: ${d.titles} titles`)
+            });
+        });
+        d3.csv('data.csv').then(data=>{
+            var div = d3.select("#csv-example").append('div');
+            div.append('h1').text('CSV');
+            // notice how we filter the columns out (this only happens if there is a header)
+            Object.values(data.filter(d=>{return d != "columns"})).forEach(d=>{
+                var p = div.append("p");
+                p.text(`${d.country}: ${d.titles} titles`)
+            });
+        });
+        d3.tsv('data.tsv').then(data=>{
+            var div = d3.select("#tsv-example").append('div');
+            div.append('h1').text('TSV');
+            Object.values(data.filter(d=>{return d != "columns"})).forEach(d=>{
+                var p = div.append("p");
+                p.text(`${d.country}: ${d.titles} titles`)
+            });
+        });
+        d3.xml('data.xml').then(data=>{
+            var div = d3.select("#xml-example").append('div');
+            div.append('h1').text('XML');
+            data.documentElement.querySelectorAll('row').forEach(d=>{   
+                var p = div.append("p");
+                p.text(`${d.children[0].textContent}: ${d.children[1].textContent} titles`)
+            });
+        });
+    </script>
+</body>
+
+</html>
