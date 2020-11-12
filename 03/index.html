@@ -13,7 +13,7 @@
     <div id="xml-example"></div>
 
     <script>
-        d3.json('data.json').then(data=>{
+        d3.json('data2.json').then(data=>{
             var div = d3.select("#json-example").append('div');
             div.append('h1').text('Json');
             Object.values(data).forEach(d=>{
@@ -24,8 +24,7 @@
         d3.csv('data.csv').then(data=>{
             var div = d3.select("#csv-example").append('div');
             div.append('h1').text('CSV');
-            // notice how we filter the columns out (this only happens if there is a header)
-            Object.values(data.filter(d=>{return d != "columns"})).forEach(d=>{
+            data.forEach(d=>{
                 var p = div.append("p");
                 p.text(`${d.country}: ${d.titles} titles`)
             });
@@ -33,7 +32,7 @@
         d3.tsv('data.tsv').then(data=>{
             var div = d3.select("#tsv-example").append('div');
             div.append('h1').text('TSV');
-            Object.values(data.filter(d=>{return d != "columns"})).forEach(d=>{
+            data.forEach(d=>{
                 var p = div.append("p");
                 p.text(`${d.country}: ${d.titles} titles`)
             });
@@ -43,7 +42,9 @@
             div.append('h1').text('XML');
             data.documentElement.querySelectorAll('row').forEach(d=>{   
                 var p = div.append("p");
-                p.text(`${d.children[0].textContent}: ${d.children[1].textContent} titles`)
+                var country = d.children[0].textContent;
+                var titles = d.children[1].textContent;
+                p.text(`${country}: ${titles} titles`);
             });
         });
     </script>

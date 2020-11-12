@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting data</title>
+</head>
+<body>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <div id="wc-winners"></div>
+
+    <script>
+        Promise.any([
+            d3.csv("data.csv"),
+            d3.json("data.json"),
+            d3.tsv("data.tsv"),
+            d3.xml("data.xml")
+            ]).then((data)=> {
+                console.log(data);
+        }).catch(e=>{
+            console.warn(e);
+        })
+    </script>
+</body>
+
+</html>
