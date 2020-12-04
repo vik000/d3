@@ -12,7 +12,7 @@ async def handle(request):
     return web.Response(text=json.dumps(text), headers={"X-Custom-Server-Header": "Custom data"}, status=200)
 
 async def world_cup_winners(request):
-    r = {'Brazil': 5, 'Germany': 4, 'Italy': 4, 'Uruguay': 2, 'Argentina': 2, 'France': 2, 'England': 1, 'Spain': 1}
+    r = {'Brazil': 5, 'Germany': 4, 'Italy': 4, 'Uruguay': 2, 'Argentina': 2, 'France': 2, 'England': 1, 'Spain': "1"}
     print('World Cup Winners')
     return web.Response(text=json.dumps(r), headers={"X-Custom-Server-Header": "Custom data"}, status=200)
 

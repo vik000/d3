@@ -11,9 +11,11 @@
 
     <script>
         d3.json('http://localhost:8000/world-cup-winners').then(data=>{
+            var div = d3.select("#wc-winners").append('div');
+            div.append('h1').text('World Cup Winners');
             Object.entries(data).forEach((d)=>{
-                console.log(typeof d[0]);
-                console.log(typeof d[1]);
+                var p = div.append("p");
+                p.text(`${d[0]}: ${d[1]} titles`)
             });
         });
 

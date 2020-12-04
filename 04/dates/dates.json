@@ -1,0 +1,83 @@
+{
+    "Round16": [{
+        "team1": "Uruguay",
+        "team2": "Portugal",
+        "date": "30062018"
+        },
+        {
+        "team1": "France",
+        "team2": "Argentina",
+        "date": "30062018"
+        },
+        {
+        "team1": "Brazil",
+        "team2": "Mexico",
+        "date": "02072018"
+        },
+        {
+        "team1": "Belguim",
+        "team2": "Japan",
+        "date": "02072018"
+        },
+        {
+        "team1": "Spain",
+        "team2": "Russia",
+        "date": "01072018"
+        },
+        {
+        "team1": "Croatia",
+        "team2": "Denmark",
+        "date": "01072018"
+        },
+        {
+        "team1": "Sweden",
+        "team2": "Switzerland",
+        "date": "03072018"
+        },
+        {
+        "team1": "Colombia",
+        "team2": "England",
+        "date": "03072018"
+        }],
+    "Quarter-finals": [{
+        "team1": "Uruguay",
+        "team2": "France",
+        "date": "06072018"
+        },
+        {
+        "team1": "Brazil",
+        "team2": "Belguim",
+        "date": "06072018"
+        },
+        {
+        "team1": "Russia",
+        "team2": "Croatia",
+        "date": "07072018"
+        },
+        {
+        "team1": "France",
+        "team2": "Belgium",
+        "date": "10072018"
+        },
+        {
+        "team1": "Croatia",
+        "team2": "England",
+        "date": "11072018"
+        }],
+    "Semi-finals": [{
+        "team1": "France",
+        "team2": "Belgium",
+        "date": "10072018"
+        },
+        {
+        "team1": "Croatia",
+        "team2": "England",
+        "date": "11072018"
+        }],
+    "Finals": [{
+        "team1": "Croatia",
+        "team2": "France",
+        "date": "15072018"
+        }]
+}
+

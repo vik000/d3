@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getting data</title>
+</head>
+<body>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <div id="json-example"></div>
+    <div id="csv-example"></div>
+    <div id="tsv-example"></div>
+    <div id="xml-example"></div>
+
+    <script>
+        d3.json('dates.json').then(data=>{
+            Object.values(data).forEach(stage=>{
+                stage.forEach(match=>{
+                    console.log(match.date);
+                    })
+                })
+        });
+        var formatDate = d3.timeParse("%d%m%Y");
+        d3.json('dates.json').then(data=>{
+            Object.values(data).forEach(stage=>{
+                stage.forEach(match=>{
+                    var d = formatDate(match.date);
+                    console.log(d);
+                    console.log(d.getDate());
+                    console.log(d.getMonth());
+                    console.log(d.getFullYear());
+                    })
+                })
+        });
+    </script>
+</body>
+
+</html>
