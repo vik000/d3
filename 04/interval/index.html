@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intervals</title>
+</head>
+<body>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script>
+        let getData = function (src) {
+            d3.json(src).then(data=>{
+                console.log(data);
+                // Object.values(data).forEach(d=>{
+                    // console.log(`${d.country}: ${d.titles} titles`);
+                // });
+            });
+        }
+
+        // d3.interval(function() {getData('data.json')}, 2000);
+        // d3.interval(function() {getData('http://localhost:8000/random-stocks')}, 1000);
+        console.log('before the call');
+        d3.timer(function() {getData('http://localhost:8000/random-stocks')}, 3000);
+    </script>
+</body>
+
+</html>

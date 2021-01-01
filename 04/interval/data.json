@@ -1,0 +1,35 @@
+{
+    "0" : {
+        "country": "Brazil",
+        "titles": 5
+    },
+    "1": {
+        "country" : "Germany",
+        "titles" : 4
+    },
+    "2": {
+        "country" : "Italy",
+        "titles" : 4
+    },
+    "3": {
+        "country" : "Argentina",
+        "titles" : 2
+    },
+    "4": {
+        "country" : "Uruguay",
+        "titles" : 2
+    },
+    "5": {
+        "country" : "France",
+        "titles" : 2
+    },
+    "6": {
+        "country" : "England",
+        "titles" : 1
+    },
+    "7": {
+        "country" : "Spain",
+        "titles" : 1
+    }
+}
+

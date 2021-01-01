@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selections</title>
+</head>
+<body>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <div id="json-example"></div>
+
+    <script>
+        d3.json('data.json').then(data=>{
+            var div = d3.select("#json-example").append('div');
+            div.append('h1').text('Json');
+            data.WorldCupWinners.forEach(d=>{
+                var p = div.append("p");
+                p.text(`${d.country}: ${d.titles} titles`);
+                // console.log(typeof d.country);
+            });
+        });
+    </script>
+</body>
+
+</html>
