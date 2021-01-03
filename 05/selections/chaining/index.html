@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chaining</title>
+</head>
+<body>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <div id="example1"></div>
+    <div id="example2">
+        <p>item 1</p>
+        <p>item 2</p>
+        <p>item 3</p>
+        <p>item 4</p>
+        <p>item 5</p>
+    </div>
+
+    <script>
+        d3.json('data.json').then(data=>{
+            var div = d3.select("#example1").append('div');
+            div.append('h1').text('Json');
+            data.WorldCupWinners.forEach(d=>{
+                var p = div.append("p");
+                p.text(`${d.country}: ${d.titles} titles`);
+                // console.log(typeof d.country);
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appending Shapes</title>
+</head>
+<body>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <div id="main"></div>
+
+    <script>
+        d3.json('data.json').then(data=>{
+            var svg = d3.select("#main").append('svg'); 
+            svg.node().setAttribute('width', 1000)
+            svg.node().setAttribute('height', 250)
+            const origin = 100;
+            
+            var circles = svg.append('g')
+            data.WorldCupWinners.forEach((d, i)=>{
+                var g = circles.append('g');
+                var c = g.append("circle");
+                c.node().setAttribute('r', d.titles * 10);
+
+                var txt = g.append('text');
+                txt.node().setAttribute('y', 100);
+                txt.text(`${d.country}`);
+                txt.node().setAttribute('text-anchor', 'middle');
+
+                g.node().setAttribute('transform', `translate(${origin + (i * 100)}, 0)`);
+            });
+            circles.node().setAttribute('transform', 'translate(0, 100)')            
+
+        });
+
+    </script>
+</body>
+
+</html>
