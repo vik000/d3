@@ -27,8 +27,12 @@
                 txt.text(`${d.country}`);
                 txt.node().setAttribute('text-anchor', 'middle');
             });
+        }).then(function(){
+            var svg = d3.select('#main').select('svg');
+            svg.selectAll('circle').filter(function(d, i) {
+                return i % 2 == 0;
+            }).attr('fill', 'lightgrey');  
         });
-
     </script>
 </body>
 

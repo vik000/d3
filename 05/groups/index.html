@@ -15,8 +15,8 @@
             svg.node().setAttribute('width', 1000)
             svg.node().setAttribute('height', 250)
             const origin = 100;
-            
-            var circles = svg.append('g')
+
+            var circles = svg.append('g');
             data.WorldCupWinners.forEach((d, i)=>{
                 var g = circles.append('g');
                 var c = g.append("circle");
@@ -29,8 +29,7 @@
 
                 g.node().setAttribute('transform', `translate(${origin + (i * 100)}, 0)`);
             });
-            circles.node().setAttribute('transform', 'translate(0, 100)')            
-
+            circles.node().setAttribute('transform', 'translate(0, 100)');            
         });
 
     </script>
