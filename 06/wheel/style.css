@@ -1,0 +1,125 @@
+div#container {
+    display: flex;
+    justify-content: center;
+}
+
+div#wheel{
+    width: 600px;
+    /* margin-left: 50%; */
+}
+
+svg {
+    position: relative;
+    left: 50%;
+    top: 250px;
+    transform: translate(-50%, -50%);
+  }
+
+text.label {
+    text-anchor: middle;
+}
+
+g.labelContainer {
+    transform: translate(50%, 50%);
+}
+
+text.label.active {
+    font-size: large;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+text.label.note {
+    font-size: medium;
+    font-weight: normal;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+path {
+    cursor: pointer;
+}
+
+path.red.active {
+    fill: hsl(0, 100%, 50%);
+}
+
+path.orange.active {
+    fill: hsl(39, 100%, 50%);
+}
+
+path.yellow.active {
+    fill: hsl(60, 100%, 50%);
+}
+
+path.greenyellow.active {
+    fill: hsl(84, 100%, 59%);
+}
+
+path.lime.active {
+    fill: hsl(120, 100%, 50%);
+}
+
+path.aquamarine.active {
+    fill: hsl(160, 100%, 75%);
+}
+
+path.cyan.active {
+    fill: hsl(180, 100%, 50%);
+}
+
+path.dodgerblue.active {
+    fill: hsl(210, 100%, 56%);
+}
+
+path.blue.active {
+    fill: hsl(240, 100%, 50%);
+}
+
+path.purple.active {
+    fill: hsl(300, 100%, 25%);
+}
+
+path.mediumvioletred.active {
+    fill: hsl(322, 81%, 43%);
+}
+
+path.deeppink.active {
+    fill: hsl(328, 100%, 54%);
+}
+
+path.inactive {
+    /* fill: lightgray !important; */
+    fill-opacity: 0.1;
+}
+
+path.active.selected {
+    stroke: black;
+    stroke-width: 2px;
+}
+
+div.controls {
+    display: grid;
+    grid-template-columns: 40px auto auto 40px;
+    margin-top: 10px;
+}
+
+div.col.col-one {
+    grid-column-start: 2;
+}
+
+div.col.col-two {
+    grid-column-start: 3;
+}
+
+button {
+    width: 80%;
+    margin-left: 10%;
+    margin-top: 5px;
+    padding: 5px 10px 5px 10px;
+    font-weight: bold;
+}
+
+h2 {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}

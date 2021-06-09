@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colour Wheel</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
+<div id="container">
+    <div id="wheel">
+        <svg id="svg" width="500" height="500"></svg>
+        <div class="controls">
+            <div class="col col-one">
+                <h2>Colours families</h2>
+                <button class="family active" id="primary" onmouseout="restore(this)" onmouseover="trigger(this)">primary</button>
+                <button class="family active" id="secondary" onmouseout="restore(this)" onmouseover="trigger(this)">secondary</button>
+                <button class="family active" id="tertiary" onmouseout="restore(this)" onmouseover="trigger(this)">tertiary</button>
+                <button class="family active" id="warm" onmouseout="restore(this)" onmouseover="trigger(this)">warm</button>
+                <button class="family active" id="cool" onmouseout="restore(this)" onmouseover="trigger(this)">cool</button>
+            </div>
+            <div class="col col-two">
+                <h2>Colour harmonies</h2>
+                <button class="btn active" id="complementary" onclick="complementaryTrigger(this)">complementary</button>
+                <button class="btn active" id="monochromatic" onclick="complementaryTrigger(this)">monochromatic</button>
+                <button class="btn active" id="analogous" onclick="complementaryTrigger(this)">analogous</button>
+                <button class="btn active" id="triadic" onclick="complementaryTrigger(this)">triadic</button>
+                <button class="btn active" id="tetradic" onclick="complementaryTrigger(this)">tetradic</button>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<script src="main.js"></script>
+</body>
+</html>

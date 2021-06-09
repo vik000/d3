@@ -1,0 +1,23 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gradient fill</title>
+</head>
+<body>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <svg width="100%" height="100%">          
+        <radialGradient id="gradient">
+            <stop offset="40%"  stop-color="red" />
+            <stop offset="40%" stop-color="rgb(250, 250, 250)" />
+        </radialGradient>
+        
+        <rect width="100" height="100" fill="url(#gradient)" stroke='black' stroke-width=0.2> </rect>
+    </svg>
+</body>
+</html>
+
+
