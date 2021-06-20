@@ -17,6 +17,7 @@ const monoscale = d3.scaleLinear().domain([0, 11]);
 let selectedColour;
 let index;
 let selectedPie;
+let selectedArray = [];
 
 function restore(item){
     d3.selectAll('path').each((d, i, a) => {
@@ -41,7 +42,7 @@ function trigger(item, filterParam){
     }).each((d, i, a) => {
         var thisItem = d3.select(a[i])
         thisItem.classed("inactive", !thisItem.classed("inactive"));
-        label.text(item.id);
+        label.text(`${item.id} ${selectedArray.join(', ')}`);
     });
 }
 
@@ -84,7 +85,7 @@ function complementaryTrigger(item) {
                 monochrome();
                 break;
             case 'analogous':
-                var params = [index, (index + 5) % 12, (index + 7) % 12];
+                var params = [index, (index + 11) % 12, (index + 1) % 12];
                 harmony(params);
                 break;
             case 'triadic':
