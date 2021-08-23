@@ -1,0 +1,24 @@
+#svg {
+    width: 100%;
+    height: 1000px;
+}
+
+.axis {
+    font: 10px sans-serif;
+  }
+  
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+g.y.axis g.tick line {
+    opacity: 0.5;
+    stroke-dasharray: 1 2;
+}
+
+g.y.axis path {
+    opacity: 0;
+}
