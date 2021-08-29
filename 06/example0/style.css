@@ -1,0 +1,20 @@
+body {
+	margin: auto;
+    width: 1000px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* .bar { 
+    fill: #4868BB; 
+}
+.max {
+    fill: #FFC939;
+} */
+
+
+.bar { 
+    fill: #828282; 
+}
+.max {
+    fill: #FFC939;
+}

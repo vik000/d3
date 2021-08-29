@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Patterns (circle)</title>
+</head>
+<body>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+
+    
+    <svg width="100%" height="100%">          
+        <pattern id="pattern-circles" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+          <circle  cx="20" cy="20" r="20" fill="lightblue"/>
+        </pattern>
+
+        <!-- <circle cx=80 cy=80 r=50 fill="url(#pattern-circles)" />  -->
+        <rect width="180" height="100" fill="url(#pattern-circles)">
+        </rect>
+      </svg>
+    
+    <script>
+
+    </script>
+</body>
+
+</html>

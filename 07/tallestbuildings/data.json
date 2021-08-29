@@ -1,0 +1,79 @@
+{
+    "buildings": [
+        {
+            "name": "Bank of Manhattan",
+            "height": 283,
+            "image": "bank_of_manhattan.png"
+        },
+        {
+            "name": "Burj Khalifa",
+            "height": 828,
+            "image": "burj_khalifa.png"
+        },
+        {
+            "name": "Chrysler Building",
+            "height": 319,
+            "image": "chrysler.png"
+        },
+        {
+            "name": "Empire State Building",
+            "height": 381,
+            "image": "empire_state.png"
+        },
+        {
+            "name": "Home Insurance Building",
+            "height": 55,
+            "image": "home_insurance.png"
+        },
+        {
+            "name": "Manhattan Life Building",
+            "height": 106,
+            "image": "manhattan_life.png"
+        },
+        {
+            "name": "Metropolitan Life Tower",
+            "height": 213,
+            "image": "metropolitan_life.png"
+        },
+        {
+            "name": "Parl Row Building",
+            "height": 119,
+            "image": "park_row.png"
+        },
+        {
+            "name": "Petronas Towers 1 & 2",
+            "height": 452,
+            "image": "petronas.png"
+        },
+        {
+            "name": "Sears Towers",
+            "height": 417,
+            "image": "sears_towers.png"
+        },
+        {
+            "name": "Singer Building",
+            "height": 187,
+            "image": "singer_building.png"
+        },
+        {
+            "name": "Taipei 101",
+            "height": 508,
+            "image": "taipei.png"
+        },
+        {
+            "name": "Woolworth Building",
+            "height": 241,
+            "image": "woolworth.png"
+        },
+        {
+            "name": "World Building",
+            "height": 94,
+            "image": "world_building.png"
+        },
+        {
+            "name": "One World Trade Center",
+            "height": 417,
+            "image": "wtc.png"
+        }
+    ]
+}

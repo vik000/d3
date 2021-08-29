@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sort</title>
+</head>
+<body>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <div id="main"></div>
+
+    <script>
+        d3.json('data.json').then(data=>{
+
+            data = data.WorldCupWinners.sort((a, b) => {
+                return d3.ascending(a.titles, b.titles);
+            });
+
+            var svg = d3.select("#main").append('svg'); 
+            svg.attr('width', 1000);
+            svg.attr('height', 250);
+            const origin = 100;
+
+            data.forEach((d, i)=>{
+                console.log();
+                var c = svg.append("circle");
+                c.attr('r', d.titles * 10);
+                c.attr('cx', origin + (i * 100));
+                c.attr('cy', 100);
+
+                var txt = svg.append('text');
+                txt.attr('x', origin + (i * 100));
+                txt.attr('y', 150 + Math.max(...data.map(d=>{return d.titles})) * 10); // this results in 200
+                txt.text(`${d.country}`);
+                txt.attr('text-anchor', 'middle');
+            })
+        });
+
+    </script>
+</body>
+
+</html>

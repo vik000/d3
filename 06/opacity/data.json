@@ -1,0 +1,36 @@
+{
+    "WorldCupWinners" : 
+    [{
+        "country": "Brazil",
+        "titles": 5
+    },
+    {
+        "country" : "Germany",
+        "titles" : 4
+    },
+    {
+        "country" : "Italy",
+        "titles" : 4
+    },
+    {
+        "country" : "Argentina",
+        "titles" : 2
+    },
+    {
+        "country" : "Uruguay",
+        "titles" : 2
+    },{
+        
+        "country" : "France",
+        "titles" : 2
+    },
+    {
+        "country" : "England",
+        "titles" : 1
+    },
+    {
+        "country" : "Spain",
+        "titles" : 1
+    }]
+}
+
