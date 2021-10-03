@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <title>Enter</title>
+</head>
+<body>
+    
+    <svg width="600" height="800"></svg>
+
+    <script>
+        const svg = d3.select('svg');
+        
+        // Existing elements:
+        let data = [10];
+
+        // adding elements every 2 seconds.
+        function addData() {
+            let d = Math.ceil(Math.random() * 100)
+            data.push(d)
+            console.log(d)
+        }
+
+        d3.interval(addData, 2000)
+        
+
+
+        function addCircle(cy) {
+            svg.append('circle').attr('r', 20).attr('cx', 100).attr('cy', cy)
+        }
+        
+        // adding elements using data
+        data.forEach(d=> {
+            addCircle(d * 10)
+        })
+        
+        // There is still a mismatch between elements and data, as the new data inputs have not been treated. 
+
+    </script>
+    
+</body>
+</html>
