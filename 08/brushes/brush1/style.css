@@ -1,0 +1,7 @@
+circle.static {
+    fill: darkslategrey;
+}
+
+circle.selected {
+    fill: mediumvioletred !important;
+}
