@@ -8,8 +8,11 @@ const margins = {
     bottom: 90
 }
 
-let svg = d3.select('#chart').append('svg').attr('height', height).attr('width', width).style('background-color', 'azure')
-let elementGroup = svg.append('g').attr('id', 'elementGroup')
+let svg = d3.select('#chart').append('svg').attr('height', height).attr('width', width)
+let elementGroup = svg.append('g').attr('id', 'elementGroup').attr('transform', `translate(${margins.left}, ${margins.top})`)
+let axisGroup = svg.append('g').attr('class', 'axisGroup')
+let xAxisGroup = axisGroup.append('g').attr('class', 'axisGroup xAxisGroup').attr('transform', `translate(${margins.left}, ${height - margins.bottom})`)
+let yAxisGroup = axisGroup.append('g').attr('class', 'axisGroup yAxisGroup').attr('transform', `translate(${margins.left}, ${margins.top})`)
 
 let x = d3.scaleTime().range([0, width - margins.left - margins.right])
 let y = d3.scaleLinear().range([height - margins.top - margins.bottom, 0])
@@ -26,8 +29,16 @@ d3.csv('data.csv').then(data=>{
     y.domain(d3.extent(data.map(d => d.price)))
     console.log(data)
 
+    let xAxis = d3.axisBottom().scale(x)
+    let yAxis = d3.axisLeft().scale(y)
+
+    xAxisGroup.call(xAxis)
+    yAxisGroup.call(yAxis)
+
+
     elementGroup.datum(data)
         .append('path')
+            .attr('id', 'line')
             .attr('fill', 'none')
             .attr('stroke', 'black')
             .attr("stroke-width", 1.5)
