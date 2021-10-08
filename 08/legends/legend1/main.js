@@ -32,7 +32,6 @@ let legendTitle = legendGroup
 
 let x = d3.scalePoint().range([0, width - margins.left - margins.right])
 let y = d3.scaleLinear().range([height - margins.top - margins.bottom, 0])
-// let y = d3.scaleLinear().range([0, height - margins.top - margins.bottom])
 
 let xAxis = d3.axisBottom().scale(x)
 let yAxis = d3.axisLeft().scale(y)

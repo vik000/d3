@@ -52,8 +52,8 @@ function drawBar(group) {
         .attr('y', d => y(d.population))
 }
 
-function updateBars(group) {
-    group.selectAll('rect')
+function updateBars(bars) {
+    bars
         .attr('width', barWidth)
         .attr('x', (d, i, a) => (barWidth) * i)
         .transition().duration(1000)
