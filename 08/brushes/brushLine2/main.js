@@ -16,6 +16,7 @@ const sliderDims = {
 }
 
 let svg = d3.select('#chart').append('svg').attr('height', height).attr('width', width)
+let elementGroup = svg.append('g').attr('id', 'elementGroup').attr('transform', `translate(${margins.left}, ${margins.top})`)
 
 svg.append('defs')
 .append('svg:clipPath')
@@ -24,7 +25,6 @@ svg.append('defs')
         .attr("width", width - margins.left - margins.right)
         .attr("height", height - margins.top - margins.bottom)
 
-let elementGroup = svg.append('g').attr('id', 'elementGroup').attr('transform', `translate(${margins.left}, ${margins.top})`)
 elementGroup.attr('clip-path', 'url(#clipper)')
 
 let axisGroup = svg.append('g').attr('class', 'axisGroup')
