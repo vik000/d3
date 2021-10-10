@@ -4,7 +4,7 @@ const margins = {
     top: 10,
     bottom: 40,
     left: 40,
-    right: 150
+    right: 10
 }
 const centering = 40
 
@@ -13,22 +13,6 @@ let elementGroup = svg.append('g').attr('class', "elementGroup")
 let axisGroup = svg.append('g').attr('class', "axisGroup")
 let xAxisGroup = axisGroup.append('g').attr('class', "xAxisGroup").attr("transform", `translate(${margins.left}, ${height - margins.bottom})`)
 let yAxisGroup = axisGroup.append('g').attr('class', "yAxisGroup").attr("transform", `translate(${margins.left}, ${margins.top})`)
-let legendGroup = svg.append('g').attr('id', 'legendGroup').attr('transform', `translate(${width - margins.right + 35}, ${height - margins.bottom - 180})`)
-let legendBack = legendGroup.append('rect')
-                        .attr('id', "legendBack")
-                        .attr('width', margins.right - 35)
-                        .attr('height', 120)
-                        .attr('x', 0)
-                        .attr('y', 0)
-
-let legendTitle = legendGroup
-    .append('text')
-        .attr('class', 'legendText legendTitle')
-        .text('EU member')
-        .attr('text-anchor', 'middle')
-        .attr('x', 55)
-        .attr('y', 20)
-
 
 let x = d3.scalePoint().range([0, width - margins.left - margins.right])
 let y = d3.scaleLinear().range([height - margins.top - margins.bottom, 0])
@@ -41,9 +25,20 @@ let barSeparation;
 let barWidth;
 let barHeight = height - margins.top - margins.bottom;
 
+let nested;
+let originalData = []
+let drilled = false;
+
+function drilldown(d, i, a) {
+    newData = drilled ? nested[i].values : originalData
+    drilled = !drilled
+    updateChart(newData)
+}
+
 function drawBar(group) {
     group.append('rect')
-        .attr('class', d => `bar ${d.country} ${d.EU_member ? "EU" : 'non_EU'}`)
+        .on('click', drilldown)
+        .attr('class', d => `bar ${(d.key == "true" || d.EU_member) ? "EU" : 'non_EU'}`)
         .attr('width', barWidth)
         .attr('x', (d, i, a) => (barWidth) * i)
         .attr('y', d => barHeight)
@@ -54,48 +49,15 @@ function drawBar(group) {
 
 function updateBars(bars) {
     bars
+        .attr('class', d => `bar ${(d.key == "true" || d.EU_member) ? "EU" : 'non_EU'}`)
         .attr('width', barWidth)
         .attr('x', (d, i, a) => (barWidth) * i)
         .transition().duration(1000)
-        .attr('height', d => barHeight - y(d.population))
+        .attr('height', (d, i, a) => barHeight - y(d.population))
         .attr('y', d => y(d.population))
 }
 
-function hideElse(e) {
-    let selected = e
-    let allBars = d3.selectAll('.bar')
-    allBars.classed("hide", (d, i, a) => !a[i].classList.contains("EU") == selected);
-}
-
-function showAll(e) {
-    let selected = e
-    let allBars = d3.selectAll('.bar')
-    allBars.classed("hide", d => false);
-}
-
-function drawLegend(group) {
-    let legendItem = group.append('g').attr('class', 'legendItem')
-        .attr('transform', (d, i) => `translate(${14}, ${60 + i * 30})`)
-        .on('mouseover', hideElse)
-        .on('mouseout', showAll)
-
-    legendItem.append('circle')
-        .attr('class', d => `legend ${d ? 'EU' : 'non_EU'}`)
-        .attr('r', 7)
-
-    legendItem.append('text')
-        .attr('class', 'legendText')
-        .text(d => d ? "EU member" : "non member")
-        .attr('x', 10)
-        .attr('y', 4)
-}
-
-d3.csv('data.csv').then(data=>{
-    data.forEach(d => {
-        d.population = +d.population
-        d.EU_member = d.EU_member == 'yes' ? true :false
-    })
-
+function updateChart(data) {
     barSeparation = 0
     barWidth = ((width - margins.left - margins.right - centering) / data.length)
      
@@ -110,16 +72,33 @@ d3.csv('data.csv').then(data=>{
     yAxisGroup.call(yAxis)
 
     elementGroup.attr("transform", `translate(${margins.left + (centering / 2)}, ${margins.top})`)
-    let bars = elementGroup.selectAll('rect').data(data)
     
+    let bars = elementGroup.selectAll('rect').data(data)
     bars.enter().call(drawBar)
     bars.call(updateBars)
     bars.exit().remove()
+}
 
+d3.csv('data.csv').then(data=>{
+    data.forEach(d => {
+        d.population = +d.population
+        d.EU_member = d.EU_member == 'yes' ? true :false
+    })
 
-    // legend:
-    let EU_member = data.map(d => d.EU_member)
-    legendGroup.selectAll('.legendItem').data([...new Set(EU_member)]).enter().call(drawLegend)
+    // TREAT DATA:
+    nested = d3.nest()
+        .key(d => d.EU_member)
+        .entries(data)
 
-    // console.log(data);
+    nested.forEach(function(d, i) {
+        let country = d.key == 'true' ? "EU" : "non EU"
+        let population = nested[i].values.reduce((a,b) => 
+            a + b.population, 0 
+        )
+        originalData.push({'country': country, 'population': population, "key": d.key})
+    })
+
+    data = originalData
+    // data is now stored between nested and data
+    updateChart(data)
 })

@@ -39,8 +39,9 @@ let barSeparation;
 let barWidth;
 let barHeight = height - margins.top - margins.bottom;
 
+
+// sorting:
 let iconParams = {
-    // make a class?
     ascending: true, 
     angle: 270,
     x: width - margins.right + 10, 
@@ -106,7 +107,7 @@ function updateBars(bar) {
         .transition().duration(1000)
         .attr('width', barWidth)
         .attr('x', (d, i, a) => (barWidth) * i)
-        .attr('height', d => barHeight - y(d.population))
+        .attr('height', (d, i, a) => barHeight - y(d.population))
         .attr('y', d => y(d.population))
 }
 
