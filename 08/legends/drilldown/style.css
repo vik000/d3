@@ -3,6 +3,7 @@
     fill: lightgray;
     stroke: white;
     stroke-width: 1;
+    cursor: pointer;
 }
 
 .bar.hide {

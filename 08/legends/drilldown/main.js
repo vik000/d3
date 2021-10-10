@@ -49,10 +49,10 @@ function drawBar(group) {
 
 function updateBars(bars) {
     bars
+        .transition().duration(1000)
         .attr('class', d => `bar ${(d.key == "true" || d.EU_member) ? "EU" : 'non_EU'}`)
         .attr('width', barWidth)
         .attr('x', (d, i, a) => (barWidth) * i)
-        .transition().duration(1000)
         .attr('height', (d, i, a) => barHeight - y(d.population))
         .attr('y', d => y(d.population))
 }
@@ -68,8 +68,8 @@ function updateChart(data) {
     x.domain(dom)
     y.domain([0, extent[1]])
     
-    xAxisGroup.call(xAxis)
-    yAxisGroup.call(yAxis)
+    xAxisGroup.transition().duration(1000).call(xAxis)
+    yAxisGroup.transition().duration(1000).call(yAxis)
 
     elementGroup.attr("transform", `translate(${margins.left + (centering / 2)}, ${margins.top})`)
     
@@ -82,7 +82,7 @@ function updateChart(data) {
 d3.csv('data.csv').then(data=>{
     data.forEach(d => {
         d.population = +d.population
-        d.EU_member = d.EU_member == 'yes' ? true :false
+        d.EU_member = d.EU_member == 'yes' ? true : false
     })
 
     // TREAT DATA:
