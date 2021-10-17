@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <title>Easing with parameters</title>
+</head>
+<body>
+    <svg width="900"></svg>
+
+    <script>
+        // exponent:
+        let ease = d3.easePoly;
+        // let ease = d3.easePoly.exponent(1);
+        // let ease = d3.easePoly.exponent(100);
+
+        // elastic:
+        // let ease = d3.easeElastic;
+        // let ease = d3.easeElastic.amplitude(0.1);
+        // let ease = d3.easeElastic.amplitude(0.5);
+        // let ease = d3.easeElastic.amplitude(1);
+        // let ease = d3.easeElastic.amplitude(3);
+        // let ease = d3.easeElastic.period(0.5);
+        // let ease = d3.easeElastic.period(1);
+        // let ease = d3.easeElastic.period(5);
+        // let ease = d3.easeElastic.amplitude(1).period(1);
+        // let ease = d3.easeElastic.amplitude(1).period(0.5);
+        // let ease = d3.easeElastic.amplitude(0.5).period(1);
+        // let ease = d3.easeElastic.amplitude(5).period(1);
+        // let ease = d3.easeElastic.amplitude(1).period(5);
+
+        // overshoot:
+        // let ease = d3.easeBack;
+        // let ease = d3.easeBack.overshoot(0.5);
+        // let ease = d3.easeBack.overshoot(1);
+        // let ease = d3.easeBack.overshoot(3);
+
+        let svg = d3.select('svg');
+        let spot = svg.append('circle')
+            .attr('r', 10)
+            .attr('cy', 140)
+            .attr('cx', 10)
+            .transition()
+            .duration(3000)
+            .ease(ease)
+            .attr('cx', 800);
+    </script>
+</body>
+</html>
