@@ -1,0 +1,4 @@
+circle {
+    fill: rgba(0,0,0,0.4);
+    transition: transform 2s;
+}
