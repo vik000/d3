@@ -1,0 +1,29 @@
+rect.bar {
+    fill: lightgray;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.soften {
+    opacity: 0.6;
+}
+
+line#refLine {
+    stroke-dasharray: 4 3;
+    stroke: rgba(25, 25, 25, 1)
+}
+
+rect.selected {
+    fill: dodgerblue;
+}
+
+text {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+text#mainText {
+    font-weight: bolder;
+    font-size: large;
+}
