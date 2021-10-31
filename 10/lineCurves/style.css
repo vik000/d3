@@ -1,0 +1,21 @@
+div.chart {
+    display: flex;
+    justify-content: space-around;
+}
+
+path {
+    stroke: black;
+    fill: none;
+}
+
+circle {
+    fill: none;
+    stroke: black;
+    stroke-width: 0.5;
+}
+
+path.refPath {
+    stroke: darkslategrey;
+    stroke-dasharray: 2 2;
+}
+

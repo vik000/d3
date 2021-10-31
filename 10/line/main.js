@@ -94,6 +94,7 @@ d3.csv('ibex.csv').then(data=>{
             .attr('stroke', 'black')
             .attr("stroke-width", 1.5)
             .attr("d", d3.line()
+                .curve(d3.curveCardinal.tension(0.8))
                 .x(d => x(d.date))
                 .y(d => y(d.close))
             )
@@ -105,8 +106,10 @@ d3.csv('ibex.csv').then(data=>{
         .attr('stroke', 'black')
         .attr("stroke-width", 1.5)
         .attr("d", d3.line()
+            .curve(d3.curveCardinal.tension(0.8))
             .x(d => x2(d.date))
             .y(d => y2(d.close))
+
         )
 
     sliderLineGroup.call(brush).call(brush.move, x2.range());
@@ -121,6 +124,7 @@ function zoom(){
     ])
     xAxisGroup.call(xAxis)
     path.attr("d", d3.line()
+        .curve(d3.curveCardinal.tension(0.8))
         .x(d => x(d.date))
         .y(d => y(d.close))
     )

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="styles.css">
+    <script src="//d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3-time-format.v2.min.js"></script>
+    <script src="timeLine.js"></script>
+    <title>AI over time</title>
+</head>
+<body>
+    <div id="chartContainer">
+        <div id="timeLine-container-RPD" class="visible AI-over-time"></div>
+        <div id="timeLine-container-conversions" class="invisible AI-over-time"></div>
+    </div>
+    <div id="buttons">
+        <a class="button RPD active" chart="timeLine-container-RPD" onclick="toggleChart(this)">Rate per Day</a>
+        <a class="button conversions inactive"  chart="timeLine-container-conversions" onclick="toggleChart(this)">Conversions</a>
+    </div>
+    <script>
+        let timeAI = new LineChart({
+            element: document.querySelector('#timeLine-container-RPD'),
+            data: 'data.json', //file  
+            // data: 'http://0.0.0.0:5858/LineChart?start=2018-01-01&end=2019-02-10&id=fergusWasRight&metrics=c', // local ms
+            // data: 'http://internal-dev-d-ecsel-1bzgnghzor3rr-1379403486.eu-west-1.elb.amazonaws.com:15013/LineChart?start=2018-01-01&id=fergusWasRight&metrics=crbt', // dev ms
+            id: 'AI-over-time',
+            title: 'Conversion over time',
+            field: {
+                x: 'date',
+                y: 'AI_rpd',
+                y2: 'nonAI_rpd'
+            },
+            units: {
+                y: '€',
+                y2: '€',
+            }
+
+        });
+        timeAI.draw({
+            interval: 30000
+        });
+    </script>
+    <script src="legendControl.js"></script>
+</body>
+</html>
