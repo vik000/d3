@@ -63,3 +63,7 @@ path {
 .soften {
     opacity: 0.1;
 }
+
+.hidden {
+    visibility: hidden;
+}

@@ -49,6 +49,9 @@ d3.csv('data.csv').then(_data=>{
             .attr('class', 'cat-text')
             .attr('y', 5)
             .text(categoryPicker(d))
+
+        tipCentreGroup.append('text')
+            .attr('class', `skillScore ${d.cat}`)
     })
 
     let playerPath = elementGroup.selectAll('g.player').data(data)
@@ -70,10 +73,11 @@ function categoryPicker(d) {
     return picker[d.cat]
 }
 
+function getCoords(d, a) {
+    return polar(scale(d[a.cat]), a.alpha)
+}
+
 function drawPath(group) {
-    function getCoords(d, a) {
-        return polar(scale(d[a.cat]), a.alpha)
-    }
 
     let pathGroup = group.append('g').attr('class', d => `player ${d.player}`)
 
@@ -102,7 +106,6 @@ function drawPath(group) {
 }
 
 function addTips(group) {
-    console.log(group)
     var playerGroup = group.append('g').attr('class', d=>`tip-player ${d.player}`)
         .attr('transform', (d, i) => `translate(${20 + (i * 100)}, ${20})`)
         .on('mouseover', d => showTip(d))
@@ -130,14 +133,22 @@ function findImage(player) {
 }
 
 function showTip(d) {
+    fullData = d
     tipCentre.text(d.player)
     d3.selectAll('g.player').classed('soften', true)
     d3.select(`g.player.${d.player}`).classed('soften', false)
+    d3.selectAll('text.skillScore').classed('hidden', false)
+    d3.selectAll('text.skillScore').each(function(d, i) {
+        score = d3.select(this)
+        score.text(fullData[angles[i].cat])
+        score.attr('transform', `translate(${getCoords(fullData, angles[i]).x}, ${getCoords(fullData, angles[i]).y})`)
+    })
 }
 
 function hideTip() {
     tipCentre.text('')
     d3.selectAll('g.player').classed('soften', false)
+    d3.selectAll('text.skillScore').classed('hidden', true)
 }
 
 function polar(r, alpha) {
