@@ -1,0 +1,39 @@
+div#legendGroup {
+    display: flex;
+    justify-content: center;
+}
+
+path {
+    stroke-width: 1;
+    fill: none;
+}
+
+.line-y0 {
+    stroke: #428bca;
+}
+
+.line-y1 {
+    stroke: #5bc0de;
+}
+
+.line-y2 {
+    stroke: #5cb85c;
+}
+
+.line-y3 {
+    stroke: #f0ad4e;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+/* 
+$pretty--color-default:#bdc3c7;
+$pretty--color-primary:#428bca;
+$pretty--color-info:#5bc0de;
+$pretty--color-success:#5cb85c;
+$pretty--color-warning:#f0ad4e;
+$pretty--color-danger:#d9534f;
+$pretty--color-dark:#5a656b; 
+*/
