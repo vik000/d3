@@ -52,6 +52,7 @@ d3.csv('data.csv').then(data => {
         let lineGroup = elementGroup.append('g').attr('class', `lineGroup line-${data.columns[i + 1]} hidden`)
         lineGroup.datum(data).append('path')
             .attr('d', d3.line()
+                .curve(d3.curveCatmullRom.alpha(0.5))
                 .x(d => x(d.x))
                 .y(d => y(d[`y${i}`]))
             )
