@@ -1,0 +1,23 @@
+
+circle {
+    fill-opacity: 0.3;
+    stroke-width: 0.5;
+    stroke-opacity: 0.8;
+    stroke: darkslategrey;
+}
+
+circle.Asia {
+    fill: #75E31C;
+}
+circle.Europe {
+    fill:#1CD9E3;
+}
+circle.Americas {
+    fill: #1F4988;
+}
+circle.Africa {
+    fill: #E3261C;
+}
+circle.Oceania {
+    fill: #8A1CE3;
+}

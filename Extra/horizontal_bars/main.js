@@ -1,33 +1,65 @@
-const barHeight = 25;
-const height = 600
 const width = 800
-const margin = {top: 30, right: 0, bottom: 10, left: 30}
+const height = 600
+const margin = {
+    top: 10,
+    right: 10,
+    bottom: 40,
+    left: 70
+}
 
-const svg = d3.select("#chart").append('svg')
-    .attr("height", height).attr('width', width);
+const svg = d3.select("#chart")
+    .append("svg")
+        .attr("id", "svg")
+        .attr("width", width)
+        .attr("height", height)
 
-let axisGroup = svg.append('g').attr('class', 'axisGroup')
-let xAxisGroup = axisGroup.append('g').attr('id', 'xAxisGroup')
-let yAxisGroup = axisGroup.append('g').attr('id', 'yAxisGroup')
+const elementGroup = svg.append("g")
+    .attr("id", "elementGroup")
+    .attr('transform', `translate(${0}, ${margin.top})`)
+const axisGroup = svg.append("g")
+    .attr("id", "axisGroup")
 
-let x = d3.scaleLinear().range()
-let y = d3.scaleBand().range()
+let y = d3.scaleBand()
+    .range([0, height - margin.top - margin.bottom])
+    .paddingInner(0.2).paddingOuter(0.05)
+let x = d3.scaleLinear()
+    .range([50, width - margin.left - margin.right])
 
-let xAxis = d3.axisBottom()
-let yAxis = d3.axisLeft()
+const xAxisGroup = axisGroup
+    .append("g")
+        .attr("id", "xAxisGroup")
+        .attr('transform', `translate(${margin.left}, ${height - margin.bottom})`)
+const yAxisGroup = axisGroup
+    .append("g")
+        .attr("id", "yAxisGroup")
+        .attr('transform', `translate(${margin.left}, ${margin.top})`)
 
-let elementGroup = svg.append('g').attr('class', 'elementGroup')
+const xAxis = d3.axisBottom().scale(x).ticks(5).tickSize(-height)
+const yAxis = d3.axisLeft().scale(y)
 
-d3.csv('data.csv').then(data=>{
-    console.log(data);
+d3.json('data.json').then(data => {
+    data = Object.values(data.worldCupWinners)
+    data.map(d => d.titles = +d.titles)
 
-    // elementGroup.selectAll('.bars').data(data).enter()
-    //     .append('rect')
-    //     .attr('class', 'bars')
-    //     .attr('width', d => d.frequency * 10000)
-    //     .attr('height', 10)
-    //     .attr('x', 0)
-    //     .attr('y', (d, i) => i * 12)
+    x.domain(d3.extent(data.map(d=>d.titles)))
+    y.domain(data.map(d => d.country))
+
+    xAxisGroup.call(xAxis)
+    yAxisGroup.call(yAxis)
+
+    xAxisGroup.select('.domain').remove()
+
+    elementGroup.selectAll('.bar').data(data).call(drawBar)
 
 })
 
+
+function drawBar(group) {
+    group.enter().append("rect")
+        .attr('id', d => d.country)
+        .attr('class', 'bar')
+        .attr('height', y.bandwidth())
+        .attr('width', d => x(d.titles))
+        .attr('x', margin.left)
+        .attr('y', d => y(d.country))
+}

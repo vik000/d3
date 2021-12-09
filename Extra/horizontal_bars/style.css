@@ -1,0 +1,11 @@
+rect.bar {
+    fill:lightslategrey;
+}
+
+g.tick {
+    stroke-dasharray: 3 3;
+}
+
+g.tick line {
+    stroke: rgba(30, 30, 30, .3);
+}
