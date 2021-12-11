@@ -1,0 +1,9 @@
+text.cityName {
+    text-anchor: middle;
+    font-size: small;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+circle.selected {
+    fill: red;
+}

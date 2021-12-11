@@ -12,7 +12,10 @@ const eHeight = height - margins.top - margins.bottom
 
 // grupos:
 let svg = d3.select('div#chart').append('svg').attr('width', width).attr('height', height)
-let elementGroup = svg.append('g').attr('id', 'elementGroup').attr('width', eWidth).attr('height', eHeight)
+let elementGroup = svg.append('g')
+    .attr('id', 'elementGroup')
+    .attr('width', eWidth)
+    .attr('height', eHeight)
     .attr('transform', `translate(${margins.left}, ${margins.top})`) 
 let axisGroup = svg.append('g').attr('id', "axisGroup")
 

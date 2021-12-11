@@ -1,0 +1,32 @@
+{
+    "data": [
+        {
+            "city": "Berlin",
+            "distance": 0
+        },
+        {
+            "city": "Paris",
+            "distance": 878
+        },
+        {
+            "city": "London",
+            "distance": 932
+        },
+        {
+            "city": "Madrid",
+            "distance": 1869
+        },
+        {
+            "city": "Moscow",
+            "distance": 1608
+        },
+        {
+            "city": "Budapest",
+            "distance": 688
+        },
+        {
+            "city": "Zagreb",
+            "distance": 768
+        }
+    ]
+}
