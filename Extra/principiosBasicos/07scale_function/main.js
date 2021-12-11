@@ -1,0 +1,1 @@
+let scale = d3.scaleLinear().range([0, 1]).domain([0, 50])

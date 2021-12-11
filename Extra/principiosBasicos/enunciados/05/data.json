@@ -1,0 +1,44 @@
+{ "worldCupWinners": 
+    { 
+        "0" : {
+                "country": "Brazil", 
+                "titles": 5, 
+                "confederation": "Conmebol" 
+            },
+        "1" : {
+                "country" : "Germany", 
+                "titles" : 4,
+                "confederation": "UEFA" 
+            }, 
+        "2": {
+                "country" : "Italy",
+                "titles" : 4,
+                "confederation": "UEFA" 
+            },
+        "3": {
+                "country" : "Argentina",
+                "titles" : 2,
+                "confederation": "Conmebol" 
+        },
+        "4": {
+                "country" : "Uruguay",
+                "titles" : 2,
+                "confederation": "Conmebol" 
+        },
+        "5": {
+                "country" : "France",
+                "titles" : 2,
+                "confederation": "UEFA" 
+        },
+        "6": {
+                "country" : "England",
+                "titles" : 1,
+                "confederation": "UEFA" 
+        },
+        "7": {
+                "country" : "Spain",
+                "titles" : 1,
+                "confederation": "UEFA" 
+        } 
+    }
+}
