@@ -72,9 +72,16 @@ function updateBubble(selection) {
 }
 
 function exit(selection) {
-    selection.exit().select('circle') // hay que hacer select porque estamos usando grupos
+    selection.exit().select('circle') 
+    // hay que hacer select porque estamos usando grupos y queremos usar una transición 
+    // en un elemento contenido dentro de los grupos.
         .attr('fill', 'red')
         .transition().duration(1000)
         .attr('r', 0)
         .remove()
+    // con esto eliminamos los grupos que queden sueltos
+    setTimeout(function(){
+        selection.exit().remove()
+    }, 1000)
+    
 }
