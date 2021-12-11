@@ -1,0 +1,17 @@
+.sector > path{
+    stroke: rgba(30, 30, 30, 1);
+}
+
+.sector > text {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    fill: black;
+    stroke: none;
+}
+
+.part1 {
+    fill:cadetblue
+}
+
+.part2 {
+    fill: coral;
+}
