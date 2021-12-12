@@ -1,0 +1,56 @@
+path.line {
+    stroke: black;
+    fill: none;
+}
+
+rect.volBar {
+    fill-opacity: 0.6;
+}
+
+rect.up {
+    fill: lightgreen;
+}
+
+rect.down {
+    fill: red;
+}
+
+
+circle.static {
+    fill: darkslategrey;
+}
+
+circle.selected {
+    fill: mediumvioletred !important;
+}
+
+circle#tipDot {
+    fill: transparent;
+    stroke: darkblue;
+    stroke-width: 1px;
+}
+
+line.lineTip {
+    stroke-width: 0.5;
+    stroke: rgba(50, 50, 50, 0.8);
+    stroke-dasharray: 2 2;
+}
+
+rect#dataBox {
+    fill: white;
+    stroke: rgba(50, 50, 50, 1);
+}
+
+text.tooltip {
+    font-size: small;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+tspan {
+    font-weight: normal;
+}
+
+g#tooltipGroup.hidden {
+    display: none;
+}

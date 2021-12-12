@@ -1,0 +1,22 @@
+h1 {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+path#diCaprio {
+    stroke: brown;
+    fill: none;
+}
+
+g#tipGroup text {
+    text-anchor: middle;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.hidden {
+    display: none;
+}
+
+.soften {
+    fill-opacity: 0.1;
+}
+
