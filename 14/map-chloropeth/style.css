@@ -1,0 +1,14 @@
+path.country {
+    stroke: rgba(40, 40, 40, 0.6);
+}
+
+path.hover {
+    fill: lightblue
+}
+
+.hidden {
+    display: none;
+}
+text {
+    font-family: Arial, Helvetica, sans-serif;
+}

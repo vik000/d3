@@ -1,0 +1,8 @@
+path.country {
+    fill: lightgrey;
+    stroke: rgba(40, 40, 40, 0.6);
+}
+
+path.hover {
+    fill: lightblue
+}
