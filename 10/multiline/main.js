@@ -30,6 +30,20 @@ let colourCode = {
     y3: "p-warning",
 }
 
+// curve selector:
+const curveSelector = function(i) {
+    switch(i) {
+        case 0:
+            return d3.curveCatmullRom.alpha(0.1)
+        case 1:
+            return d3.curveNatural
+        case 2:
+            return d3.curveBundle.beta(0.4)
+        case 3:
+            return d3.curveCardinal.tension(0.7)
+    }
+}
+
 d3.csv('data.csv').then(data => {
     console.log(data)
     data.forEach(d => {
@@ -52,7 +66,7 @@ d3.csv('data.csv').then(data => {
         let lineGroup = elementGroup.append('g').attr('class', `lineGroup line-${data.columns[i + 1]} hidden`)
         lineGroup.datum(data).append('path')
             .attr('d', d3.line()
-                .curve(d3.curveCatmullRom.alpha(0.5))
+                .curve(curveSelector(i))
                 .x(d => x(d.x))
                 .y(d => y(d[`y${i}`]))
             )

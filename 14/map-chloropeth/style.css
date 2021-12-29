@@ -1,9 +1,12 @@
 path.country {
-    stroke: rgba(40, 40, 40, 0.6);
+    stroke: rgb(40, 40, 40);
+    stroke-opacity: 0.5;
 }
 
 path.hover {
-    fill: lightblue
+    fill: yellow;
+    stroke-opacity: 1 !important;
+    stroke-width: 2 !important;
 }
 
 .hidden {

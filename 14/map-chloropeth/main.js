@@ -53,7 +53,6 @@ function drawMap(selection) {
             .attr("d", path)
             .attr("fill", d => d.properties.debt ? colour(d.properties.debt) : "lightgray")
             .on("mousemove", function(d) {
-                console.log(this)
                 mouse = d3.mouse(this)
                 name = d.properties.name
                 debt = d.properties.debt != undefined ? d.properties.debt : "unknown"
@@ -63,10 +62,19 @@ function drawMap(selection) {
                     .attr("transform", `translate(${mouse[0] + 20}, ${mouse[1] + 20})`)
                 tooltip
                     .attr("fill", "black")
-                    .attr("y", 12)
+                    .attr("y", 13)
                     .text(`${name}: ${debt}%`)
                 tooltipGroup.select('rect').attr("width", tooltip.node().getBoundingClientRect().width)
-                // console.log(tooltip)
-
+                if(tooltip.node().getBoundingClientRect().x + tooltip.node().getBoundingClientRect().width > width - 10){
+                    tooltipGroup
+                        .attr("transform", `translate(${mouse[0] - tooltip.node().getBoundingClientRect().width - 20}, ${mouse[1] + 20})`)
+                }
+            })
+            .on("mouseover", function() {
+                d3.selectAll("path.country").classed("hover", false)
+                d3.select(this).classed('hover', true)
+            })
+            .on("mouseout", function() {
+                d3.selectAll("path.country").classed("hover", false)
             })
 }

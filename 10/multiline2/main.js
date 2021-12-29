@@ -1,164 +1,156 @@
-// const:
-const totalHeight = 300
-const totalWidth = 700
+//const:
+const width = 800
+const height = 600
 const margins = {
-    top: 30, 
-    right: 10, 
-    bottom: 35, 
-    left: 40
+    top: 10,
+    bottom: 40, 
+    left: 40,
+    right: 40
+}
+const duration = 1000
+
+let svg = d3.select('div#chart').append('svg').attr("width", width).attr("height", height)
+let elementGroup = svg.append('g').attr('id', "elementGroup").attr('transform', `translate(${margins.left}, ${margins.top})`)
+
+let y = d3.scaleLinear().range([height - margins.top - margins.bottom, 0])
+let x = d3.scaleTime().range([0, width - margins.left - margins.right])
+const formatTime = d3.timeParse("%Y")
+
+let axisGroup = svg.append('g').attr('id', 'axisGroup')
+let xAxisGroup = axisGroup.append('g').attr('id', 'xAxisGroup').attr('transform', `translate(${margins.left}, ${height - margins.bottom})`).transition().duration(duration)
+let yAxisGroup = axisGroup.append('g').attr('id', 'yAxisGroup').attr('transform', `translate(${margins.left}, ${margins.top})`).transition().duration(duration)
+
+let xAxis = d3.axisBottom().scale(x)
+let yAxis = d3.axisLeft().scale(y)
+
+// legend
+let legendGroup = d3.select('div#chart').append('div').attr('id', 'legendGroup')
+const colour = d3.scaleOrdinal()
+
+// zero:
+let noDataScreen = svg.append("g").attr("id", "noDataScreen")
+    .attr("class", "hidden")
+noDataScreen.append("rect").attr("width", width).attr("height", height).attr("fill", "rgba(255, 255, 255, 1)")
+noDataScreen.append("text")
+    .attr('text-anchor', 'middle')
+    .attr("transform", `translate(${width/2}, ${height/2})`)
+    .text("no data to display")
+
+let data;
+d3.csv('data.csv').then(_data => {
+    _data.forEach(d => {
+        d.year = formatTime(d.year)
+        d.amount = +d.amount
+        d.perc = +d.perc
+    });
+
+    data = d3.nest()
+        .key(function (d) { return d.name; })
+        .entries(_data);
+
+    data.map((k, i) => {
+        let divPretty = legendGroup.append('div')
+            .attr('id', k.key)
+            .attr('class', `pretty p-default p-round p-smooth ${k.key}`)
+            .attr('selected', `false`)
+            .on('click', toggleLine)
+        
+        divPretty
+            .append('input').attr('type', 'checkbox')
+
+        divPretty
+            .append('div').attr('class', `state`)
+            .append('label').text(k.key)
+    })
+
+    colour.domain(data.map(d=>d.key))
+    // rangeFn = d3.scaleSequential().domain([0, data.length]).interpolator(d3.interpolateViridis)
+    // rangeFn = d3.scaleSequential().domain([0, data.length]).interpolator(d3.interpolateSpectral)
+    rangeFn = d3.scaleSequential().domain([0, data.length]).interpolator(d3.interpolatePlasma)
+    range = Array.from(data, (d, i) => rangeFn(i))
+    colour.range(range)
+
+    Object.values(document.styleSheets).forEach(link => {
+        if(link.href.includes("style.css")){
+            colour.domain().forEach(name => {
+                link.insertRule(`.pretty.${name} input:checked~.state label:after {background-color: ${colour(name)}!important;}`, 0);
+            })
+        }
+    })
+    
+    update(data)
+})
+
+function update(data) {
+    let allvals = data.map(d=>d.values).reduce((a, b) => a.concat(b))
+    x.domain(d3.extent(allvals.map(d => d.year)))
+    y.domain(d3.extent(allvals.map(d => d.amount)))
+
+    xAxisGroup.call(xAxis)
+    yAxisGroup.call(yAxis)
+
+    lines = elementGroup.selectAll('path.line').data(data)
+    lines.enter().call(drawLines)
+    lines.call(updateLines)    
+    lines.exit().call(removeLines)
 }
 
-const width = totalWidth - margins.left - margins.right
-const height = totalHeight - margins.top - margins.bottom
+function drawLines(selection) {
+    line = selection.append("path")
+        .attr("id", d=>`${d.key}`)
+        .attr("class", d=>`line ${d.key}`)
+        .attr("stroke", (d, i)=>colour(d.key))
+    line.datum(d => d.values)
+        .transition().duration(duration)
+        .attr("d", d3.line()
+            .x(d=>x(d.year))
+            .y(d=>y(d.amount))
+            )
+}
 
-let parseTime = d3.timeParse('%Y%m%d')
-let bisectDate = d3.bisector(function(d) {
-    return d.date
-}).left
-let formatTime = d3.timeFormat('%A %d %B %Y')
-let getWeek = d3.timeFormat('%W')
+function removeLines(selection) {
+    selection.each((data, i, a) => {
+        line = d3.select(a[i])
+        line
+            .transition()
+            .duration(duration)
+            .attr("d", d3.line().x(d=>x(0)).y(d=>y(0)))
+            .transition()
+            .duration(duration)
+            .attr("stroke", "rgba(250,250,250,0)")
+    })
+}
 
-let x = d3.scaleTime().range([0, width]);
-let y = d3.scaleLinear().range([height, 0]);
+function updateLines(selection) {
+    selection.each((data, i, a) => {
+        line = d3.select(a[i])
+        line
+            .datum(data.values)
+            .transition()
+            .duration(duration)
+            .attr("stroke", (d, i)=>colour(data.key))
+            .attr("d", d3.line()
+                .x(d=>x(d.year))
+                .y(d=>y(d.amount))
+            )
+    })
+}
 
-let xAxis = d3.axisBottom().scale(x); //.ticks(d3.timeDay.every(7))
-let yAxis = d3.axisLeft().scale(y);
-
-let svg = d3.select("div#chart").append('svg')
-    .attr('id', "chart")
-    .attr('width', totalWidth)
-    .attr('height', totalHeight);
-
-
-let xAxisGroup = svg.append('g')
-    .attr('class', 'x axis')
-    .attr('id', `xAxisGroup`)
-    .attr('transform', `translate(${margins.left}, ${height + margins.top})`);
-
-let yAxisGroup = svg.append('g')
-    .attr('transform', `translate(${margins.left}, ${margins.top})`)
-    .attr('class', 'y axis');
-
-let customYAxis = function customYAxis(g) {
-    g.transition().call(yAxis.tickSizeOuter(0));
-};
-
-let customXAxis = function customXAxis(g) {
-    g.transition().call(xAxis);
-    g.select('.domain').remove();
-    g.selectAll('.tick').each(function(d, i) {
-        // console.log(d.getDay());
-        if (getWeek(d) == '51') {
-            d3.select(this).select('text').style('font-size', 16).style('font-weight', 'bold');
-        }
-    });
-};
-
-// lines and areas:
-let groupLine = svg.append('g')
-    .attr('id', `lineGroup`)
-    .attr('transform', `translate(${margins.left}, ${margins.top})`);
-
-let clipBelow = groupLine.append('clipPath').attr('id', `clip-below`).append('path');
-let clipAbove = groupLine.append('clipPath').attr('id', `clip-above`).append('path');
-let areaAbove = groupLine.append('path')
-    .attr('class', `area above`)
-    .style('fill', 'red')
-    .style('opacity', 0.2)
-    .attr('clip-path', `url(#clip-above)`);
-
-let areaBelow = groupLine
-    .append('path')
-    .attr('class', `area below`)
-    .style('fill', 'red')
-    .style('opacity', 0.2)
-    .attr('clip-path', `url(#clip-below)`);
-
-let chartLine2 = groupLine
-    .append('path')
-    .attr('id', `line2`)
-    .attr('class', `line2`)
-    .style('stroke', 'red')
-    .style('opacity', 0.1);
-
-let chartLine = groupLine
-    .append('path')
-    .attr('id', `line`)
-    .attr('class', `line`)
-    .style('stroke', 'red')
-    .style('opacity', 0.8);
-
-// Tooltip:
-let focusContainer = svg.append('g')
-    .attr('transform', `translate(${margins.left},${margins.top})`);
-
-let focus = focusContainer.append('g').attr('class', `focus`);
-
-let tipLine = focus.append('line')
-    .attr('class', `x-hover-line hover-line tip-yLine`)
-    .style('stroke', 'red')
-    .style('stroke-width', '2px')
-    .style('stroke-dasharray', '3,3')
-    .attr('y1', 0)
-    .attr('y2', height);
-
-focus.append('circle')
-    .attr('id', `AI-tip-circle`)
-    .attr('class', `AI circulo`)
-    .attr('stroke', 'red')
-    .style('fill', '#fff')
-    .attr('r', 7.5);
-
-focus.append('circle')
-    .attr('id', `NONE-tip-circle`)
-    .attr('class', `AI circulo`)
-    .attr('stroke', 'red')
-    .style('fill', '#fff')
-    .attr('r', 7.5);
-
-focus.append('text')
-    .attr('id', `AI-tip-text`)
-    .attr('class', `tip-text`)
-    .attr('x', 15)
-    .attr('dy', '.31em')
-    .style('font-family', 'Arial, Helvetica, sans-serif');
-
-focus.append('text')
-    .attr('id', `NONE-tip-text`)
-    .attr('class', `tip-text`)
-    .attr('x', 15)
-    .attr('dy', '.31em')
-    .style('font-family', 'Arial, Helvetica, sans-serif');
-
-focus.append('text')
-    .attr('id', `performance`)
-    .attr('x', 0)
-    .attr('dy', '20px')
-    .style('font-family', "Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif")
-    .style('font-size', '3.6em');
-
-focus.append('text')
-    .attr('id', `exactDate`)
-    .attr('x', 0)
-    .attr('dy', '.31em')
-    .style('opacity', '0')
-    .style('font-family', 'Arial, Helvetica, sans-serif');
-
-let overlay = svg.append('rect')
-    .attr('id', `overlay`)
-    .attr('class', `overlay`)
-    .attr('transform', `translate(${margins.left}, ${margins.top})`)
-    .attr('width', width)
-    .attr('height', height)
-    .style('fill', 'transparent')
-    .on('mouseover', function() {
-        self.focus.style('display', null);
-        d3.select(`.area.above`).attr('class', `area above areaSelection`);
-        d3.select(`.area.below`).attr('class', `area below areaSelection`);
-        d3.select(`#line`).attr('class', `line-lineSelect`);
-        d3.select(`#line2`).attr('class', `line2-lineSelect`);
-    });
-
-d3.json('data.json').then(data=>{
-    console.log(data)
-})
+function toggleLine() {
+    element = d3.select(this)
+    if (element.attr("selected") == "false") {
+        element.attr("selected", "true")
+    } else {
+        element.attr("selected", "false")
+    }
+    selected = legendGroup.selectAll("div.pretty").nodes()
+        .filter(d => d.getAttribute('selected') == "true")
+        .map(d => d.id)
+    filteredData = data.filter(d => selected.includes(d.key))
+    if(filteredData.length != 0){
+        noDataScreen.classed("hidden", true)
+        update(filteredData)
+    } else {
+        noDataScreen.classed("hidden", false)
+    }
+}

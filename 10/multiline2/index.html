@@ -2,41 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="styles.css">
-    <!-- <script src="//d3js.org/d3.v4.min.js"></script> -->
     <script src='https://d3js.org/d3.v5.min.js'></script>
-    <!-- <script src="timeLine.js"></script> -->
-    <script src="main.js"></script>
-    <title>AI over time</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pretty-checkbox/3.0.3/pretty-checkbox.min.css" integrity="sha512-kz4Ae66pquz4nVE5ytJyKfPDkQyHSggaDtT1v8oLfOd8bB+ZgZXNLaxex99MNu4fdCsWmi58mhLtfGk5RgfcOw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+    <title>Multiline chart</title>
 </head>
 <body>
-    <div id="chartContainer">
-        <div id="timeLine-container-RPD" class="visible AI-over-time"></div>
-    </div>
     <div id="chart"></div>
-
-    <script>
-        // let timeAI = new LineChart({
-        //     element: document.querySelector('#timeLine-container-RPD'),
-        //     data: 'data.json', 
-        //     id: 'AI-over-time',
-        //     title: 'Conversion over time',
-        //     field: {
-        //         x: 'date',
-        //         y: 'AI_rpd',
-        //         y2: 'nonAI_rpd'
-        //     },
-        //     units: {
-        //         y: '€',
-        //         y2: '€',
-        //     }
-
-        // });
-        // timeAI.draw({
-        //     interval: 30000
-        // });
-    </script>
+    <script src="main.js"></script>
 </body>
 </html>

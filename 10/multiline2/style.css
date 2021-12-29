@@ -1,0 +1,19 @@
+div#legendGroup {
+    display: flex;
+    justify-content: center;
+    max-width: 800px;
+}
+
+g#elementGroup > path {
+    stroke-width: 2;
+    fill: none;
+}
+
+g#noDataScreen text{
+    font-size: xx-large;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.hidden {
+    visibility: hidden;
+}
