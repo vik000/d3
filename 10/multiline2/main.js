@@ -113,10 +113,10 @@ function removeLines(selection) {
         line = d3.select(a[i])
         line
             .transition()
-            .duration(duration)
+            .duration(duration/4)
             .attr("d", d3.line().x(d=>x(0)).y(d=>y(0)))
             .transition()
-            .duration(duration)
+            .duration(duration/4)
             .attr("stroke", "rgba(250,250,250,0)")
     })
 }
@@ -127,7 +127,7 @@ function updateLines(selection) {
         line
             .datum(data.values)
             .transition()
-            .duration(duration)
+            .duration(duration/4)
             .attr("stroke", (d, i)=>colour(data.key))
             .attr("d", d3.line()
                 .x(d=>x(d.year))
