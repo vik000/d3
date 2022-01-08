@@ -20,6 +20,8 @@ back.on("mouseover", function() {
 })
 
 let colour = d3.scaleSequential().interpolator(d3.interpolateBlues); 
+// threshold = d3.scaleThreshold()
+// threshold = d3.scaleQuantize()
 
 const projection = d3.geoMercator().translate([width / 2, height / 2]).scale(100)
 let path = d3.geoPath().projection(projection)

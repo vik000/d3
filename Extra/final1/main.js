@@ -38,7 +38,7 @@ d3.csv('data.csv').then(data=>{
     x.domain(data.map(d => d.year))
     y.domain([15, ageToday])
 
-    names = Array.from(new Set(data.map(d=>d.name)))
+    names = Array.from(new Set(data.map(d=>d.name))) // esto es una forma de asegurar una lista de nombres únicos (sin repetición)
     const colour = d3.scaleSequential().domain([0, names.length])
         .interpolator(d3.interpolateViridis);
 

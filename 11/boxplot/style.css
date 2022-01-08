@@ -1,0 +1,13 @@
+line#whiskers {
+    stroke: rgb(80, 80, 80);
+}
+
+rect#box {
+    fill: white;
+    stroke: rgb(80, 80, 80);
+}
+
+line#median {
+    stroke: rgb(80, 80, 80);
+    stroke-dasharray: 3 3;
+}
