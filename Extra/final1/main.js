@@ -38,33 +38,42 @@ d3.csv('data.csv').then(data=>{
     x.domain(data.map(d => d.year))
     y.domain([15, ageToday])
 
+    xAxisGroup.call(xAxis)
+    yAxisGroup.call(yAxis)
+
     names = Array.from(new Set(data.map(d=>d.name))) // esto es una forma de asegurar una lista de nombres únicos (sin repetición)
     const colour = d3.scaleSequential().domain([0, names.length])
         .interpolator(d3.interpolateViridis);
 
-    xAxisGroup.call(xAxis)
-    yAxisGroup.call(yAxis)
-
-
-    let dots = elementGroup.selectAll('circle').data(data)
-    dots.enter().append('circle')
-        .attr('class', d => `bar ${d.name.replace(" ", "_")}`)
-        .attr('cx', d => x(d.year) + x.bandwidth() / 2)
-        .attr('cy', d => y(d.age) + x.bandwidth() / 2)
-        .attr('r', x.bandwidth() / 2)
-        .attr('fill', d => colour(names.findIndex(name => d.name == name)))
+    // mis barras tienen la punta redondeada, por puro estilismo, eso complica un poco las cosas, porque voy a añadir circulos
+    // let dots = elementGroup.selectAll('circle').data(data)
+    // dots.enter().append('circle')
+    //     .attr('class', d => `bar ${d.name.replace(" ", "_")}`) // con esto también se pueden añadir colores
+    //     .attr('cx', d => x(d.year) + x.bandwidth() / 2)
+    //     .attr('cy', d => y(d.age) + x.bandwidth() / 2)
+    //     .attr('r', x.bandwidth() / 2)
+    //     .attr('fill', d => colour(names.findIndex(name => d.name == name)))
         
     let bars = elementGroup.selectAll('rect').data(data)
     bars.enter().append('rect')
         .attr('class', d => `bar ${d.name.replace(" ", "_")}`)
         .attr('x', d => x(d.year))
-        .attr('y', d => y(d.age) + x.bandwidth() / 2)
+        // .attr('y', d => y(d.age) + x.bandwidth() / 2)
+        .attr('y', d => y(d.age))
         .attr('width', x.bandwidth())
-        .attr('height', d => height - y(d.age) - margin.top - margin.bottom - x.bandwidth() / 2)
+        // .attr('height', d => height - y(d.age) - margin.top - margin.bottom - x.bandwidth() / 2)
+        .attr('height', d => height - y(d.age) - margin.top - margin.bottom)
         .attr('fill', d => colour(names.findIndex(name => d.name == name)))
         .on('mouseover', showTip)
         .on('mouseout', hideTip)
 
+    // let myLineFn = d3.line().x(d => x(`${d.year}`) + (x.bandwidth()/2)).y(d => y(age(d.year)))
+
+    // let line = elementGroup.datum(data)
+    // line.append('path')
+    // .attr('id', 'diCaprio')
+    // .attr('d', myLineFn)
+    
     let line = elementGroup.datum(data)
     line.append('path')
         .attr('id', 'diCaprio')
