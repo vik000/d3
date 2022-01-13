@@ -1,8 +1,7 @@
 let queryObject = {}
-let flag = true;
 
 let button = d3.select("button#send").on("click", function() {
-    d3.selectAll("label").nodes().forEach(label => {
+    d3.selectAll("label.menu").nodes().forEach(label => {
         let field = label.innerText
         let fieldId = d3.select(label).attr("for")
         let read = d3.select(`input#${fieldId}`).node().value
@@ -44,9 +43,12 @@ function update(data) {
 
     y.domain([0, d3.max(bins, d => d.length)])
     yAxisGroup.transition().duration(1000).call(yAxis)
+    
+    brushGroup.call(brush)
 
     let bars = elementGroup.selectAll('rect').data(bins)
     bars.enter().append("rect")
+        .attr('class', "bar")
         .attr('fill', "steelblue")
         .attr("x", d => x(d.x0))
         .attr("width", d => x(d.x1) - x(d.x0))
@@ -79,6 +81,17 @@ const margin = {
 }
 const svg = d3.select("#chart").append("svg").attr("width", width).attr("height", height)
 let elementGroup = svg.append("g").attr("id", "elementGroup").attr("transform", `translate(${margin.left}, ${margin.top})`)
+let brushGroup = svg.append("g").attr("id", "brushGroup")
+// let overlayControl = svg.append("rect")
+//     .attr("id", "overlayControl")
+//     .attr("width", width - margin.left - margin.right)
+//     .attr("height", height - margin.top - margin.bottom)
+//     .attr("transform", `translate(${margin.left}, ${margin.top})`)
+//     .attr("fill", "transparent")
+//     .on("mousemove", trackMouse)
+//     .on("mousedown", showBrush)
+//     .on("mouseup", hideBrush)
+
 let axisGroup = svg.append("g").attr("id", "axisGroup")
 let xAxisGroup = axisGroup.append("g").attr("id", "xAxisGroup").attr("transform", `translate(${margin.left}, ${height - margin.bottom})`)
 let yAxisGroup = axisGroup.append("g").attr("id", "yAxisGroup").attr("transform", `translate(${margin.left}, ${margin.top})`)
@@ -88,3 +101,58 @@ let y = d3.scaleLinear().range([height - margin.top - margin.bottom, 0])
 
 let xAxis = d3.axisBottom().scale(x)
 let yAxis = d3.axisLeft().scale(y)
+
+let brush = d3.brushX()
+    .extent([[margin.left, margin.top], [width - margin.right, height - margin.bottom]])
+    .on("brush end", selectBins)
+
+function selectBins() {
+    extent = d3.event.selection
+    inf = x.invert(extent[0] - margin.left)
+    sup = x.invert(extent[1] - margin.left)
+    totalSelected = []
+    binRange = []
+    elementGroup.selectAll('rect').each((d, i, a)=>{
+        let item = d3.select(a[i])
+        item.classed('selected', function(d) {
+            if(d.x0 >= inf && d.x1 <= sup) {
+                totalSelected.push(d.length)
+                binRange.push(d.x0)
+                binRange.push(d.x1)
+                return true
+            }
+        })
+    })
+    rangeTip(totalSelected.reduce((a, b) => a + b, 0), d3.extent(binRange))
+};
+
+
+function rangeTip(frequency, binRange) {
+    d3.select("#frequency").text(frequency)
+    d3.select("#binRange").text(`${binRange[0]} -> ${binRange[1]}`)
+
+};
+
+// function trackMouse() {
+//     mouse = d3.mouse(this)
+//     console.log(mouse)
+// }
+
+// // function showBrush(){
+// //     overlayControl.attr("display", "none")
+// //     // evt = 
+// //     // .dispatchEvent()
+// // }
+
+// // function hideBrush() {
+
+// // }
+
+// function showTip() {
+//     d3.selectAll("rect.bar").classed("selected", false)
+//     d3.select(this).classed("selected", true)
+// };
+
+// function hideTip() {
+//     d3.selectAll("rect.bar").classed("selected", false)
+// }
