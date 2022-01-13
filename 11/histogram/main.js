@@ -10,7 +10,7 @@ const margin = {
 const svg = d3.select("#chart").append("svg").attr("id", "svg")
     .attr("width", width)
     .attr("height", height)
-let elementGroup = svg.append("g").attr("id", "elementGroup")
+let elementGroup = svg.append("g").attr("id", "elementGroup").attr("transform", `translate(${margin.left}, ${margin.top})`)
 let axisGroup = svg.append("g").attr("id", "axisGroup")
 let xAxisGroup = axisGroup.append("g", "xAxisGroup").attr("transform", `translate(${margin.left}, ${height - margin.bottom})`)
 let yAxisGroup = axisGroup.append("g", "yAxisGroup").attr("transform", `translate(${margin.left}, ${margin.top})`)
@@ -29,7 +29,6 @@ d3.csv("data.csv").then(data => {
 
     x.domain(d3.extent(data.map(d => d.Age)))
     xAxisGroup.call(xAxis)
-    yAxisGroup.call(yAxis)
 
     // histogram:
     let histogram = d3.histogram() // this has been replaced for d3.bin in version 7+
@@ -40,17 +39,17 @@ d3.csv("data.csv").then(data => {
     let bins = histogram(data)
     // ----------
 
-    y.domain([0, d3.max(bins, d => d.length)])
+    y.domain([0, d3.max(data, d => d.Population)])
+    yAxisGroup.call(yAxis)
 
     let bars = elementGroup.selectAll('rect').data(bins)
 
     bars.enter().append("rect")
-        .attr("x", d => x(d.Age))
-        .attr("y", d => y(d.Population))
-        .attr("height", d => height - y(d.Population))
+        .attr('fill', "steelblue")
+        .attr("x", d => x(d[0].Age))
+        .attr("y", d => y(d[0].Population))
+        .attr("height", d => height - y(d[0].Population) - margin.top - margin.bottom)
         .attr("width", d => x(d.x1) - x(d.x0))
-
-
 })
 
 

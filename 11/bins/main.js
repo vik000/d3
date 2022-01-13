@@ -1,0 +1,90 @@
+let queryObject = {}
+let flag = true;
+
+let button = d3.select("button#send").on("click", function() {
+    d3.selectAll("label").nodes().forEach(label => {
+        let field = label.innerText
+        let fieldId = d3.select(label).attr("for")
+        let read = d3.select(`input#${fieldId}`).node().value
+        if(isNaN(read)) {
+            alert(`please ${field.toLowerCase()} as number`)
+        } else {
+            queryObject[fieldId] = +read
+        }
+    })
+    getData(queryObject)
+})
+
+function getData(queryObject) {
+    d3.json("http://localhost:8000/random-rolls", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            rolls: queryObject.rollInput,
+            dice: queryObject.diceInput
+        })
+    }).then(data => {
+        update(data)
+    })
+}
+
+function update(data) {
+    data = data.rolls
+    x.domain(d3.extent(data))
+    xAxisGroup.transition().duration(1000).call(xAxis)
+
+    // histogram:
+    let histogram = d3.histogram() // this has been replaced for d3.bin in version 7+
+        .value(d => d)   // I need to give the vector of value
+        .domain(x.domain())  // then the domain of the graphic
+        .thresholds(x.ticks(queryObject.binsInput)); // then the numbers of bins
+
+    let bins = histogram(data)
+    // ----------
+
+    y.domain([0, d3.max(bins, d => d.length)])
+    yAxisGroup.transition().duration(1000).call(yAxis)
+
+    let bars = elementGroup.selectAll('rect').data(bins)
+    bars.enter().append("rect")
+        .attr('fill', "steelblue")
+        .attr("x", d => x(d.x0))
+        .attr("width", d => x(d.x1) - x(d.x0))
+        .attr("y", d => height - margin.bottom)
+        .transition()
+        .duration(1000)
+        .attr("y", d => y(d.length))
+        .attr("height", d => height - y(d.length) - margin.top - margin.bottom)
+
+    bars
+        // .attr('fill', "red")
+        .transition()
+        .duration(1000)
+        .attr("x", d => x(d.x0))
+        .attr("width", d => x(d.x1) - x(d.x0))
+        .attr("y", d => y(d.length))
+        .attr("height", d => height - y(d.length) - margin.top - margin.bottom)
+    
+    bars.exit().remove()
+}
+
+// chart:
+const width = 800
+const height = 600
+const margin = {
+    top: 10, 
+    bottom: 40,
+    left: 40, 
+    right:10
+}
+const svg = d3.select("#chart").append("svg").attr("width", width).attr("height", height)
+let elementGroup = svg.append("g").attr("id", "elementGroup").attr("transform", `translate(${margin.left}, ${margin.top})`)
+let axisGroup = svg.append("g").attr("id", "axisGroup")
+let xAxisGroup = axisGroup.append("g").attr("id", "xAxisGroup").attr("transform", `translate(${margin.left}, ${height - margin.bottom})`)
+let yAxisGroup = axisGroup.append("g").attr("id", "yAxisGroup").attr("transform", `translate(${margin.left}, ${margin.top})`)
+
+let x = d3.scaleLinear().range([0, width - margin.left - margin.right])
+let y = d3.scaleLinear().range([height - margin.top - margin.bottom, 0])
+
+let xAxis = d3.axisBottom().scale(x)
+let yAxis = d3.axisLeft().scale(y)

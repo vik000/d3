@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src='https://d3js.org/d3.v5.min.js'></script>
+    <title>Document</title>
+    <script>
+            // d3.json("http://localhost:8000/random-rolls", {
+            //     method: "POST",
+            //     headers: { "Content-Type": "application/json" },
+            //     body: JSON.stringify({
+            //         rolls: 3,
+            //         dice: 3
+            //     })
+            // }).then(data => {
+            //     console.log(data)
+            // })         
+    </script>
+</head>
+<body>
+    <div id="chart"></div>
+    <label for="rollInput">Select number of Rolls</label>
+    <input id="rollInput" type="text" value=50>
+
+    <label for="diceInput">Select number of Dice</label>
+    <input id="diceInput" type="text" placeholder=2>
+
+    <label for="binsInput">Select number of Bins</label>
+    <input id="binsInput" type="text" value=10>
+
+    <button id="send">Send</button>
+    <script src="main.js"></script>
+</body>
+</html>
