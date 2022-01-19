@@ -2,10 +2,10 @@
 const width = 800
 const height = 600
 const margin = {
-    top: 40, 
+    top: 20, 
     right: 40, 
     bottom: 80,
-    left: 80
+    left: 50
 }
 
 // svg:
@@ -41,12 +41,12 @@ let yAxis = d3.axisLeft().scale(y)
 
 let xAxisLabel = axisGroup
     .append('text')
-    .text("Life Expectancy")
+    .text("GDP per Capita")
     .attr('transform', `translate(${width - margin.right}, ${height - margin.bottom -10})`)
     .attr('text-anchor', 'end')
 let yAxisLabel = axisGroup
     .append('text')
-    .text("GDP per capita")
+    .text("Life Expectancy")
         .attr('transform', `translate(${margin.left + 10}, ${margin.top}) rotate(90)`)
 
 // tooltip
@@ -59,9 +59,9 @@ d3.csv('data.csv').then(data => {
         d.lifeExpectancy = +d.lifeExpectancy
         d.population = +d.population
     })
-    console.log(data)
-    x.domain(d3.extent(data.map(d=>d.lifeExpectancy)))
-    y.domain(d3.extent(data.map(d=>d.GDPpc)))
+    // console.log(data)
+    x.domain(d3.extent(data.map(d=>d.GDPpc)))
+    y.domain(d3.extent(data.map(d=>d.lifeExpectancy)))
     z.domain(d3.extent(data.map(d=>d.population)))
 
     xAxisGroup.call(xAxis)
@@ -76,8 +76,8 @@ d3.csv('data.csv').then(data => {
 function drawCircles(group){
     group.append('circle')
         .attr('class', d=> `country ${d.continent}`)
-        .attr("cx", d=> x(d.lifeExpectancy))
-        .attr("cy", d=> y(d.GDPpc))
+        .attr("cx", d=> x(d.GDPpc))
+        .attr("cy", d=> y(d.lifeExpectancy))
         .attr("r", d=> z(d.population))
 }
 

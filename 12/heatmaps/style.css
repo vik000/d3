@@ -1,0 +1,59 @@
+rect.day.empty {
+    fill: transparent;
+    stroke: rgba(80, 80, 80, 0.1);
+}
+
+rect.highlighted {
+    stroke-width: 1;
+}
+
+rect.lightened {
+    opacity: 0.1;
+}
+
+rect.reded {
+    fill:red;
+}
+
+text {
+    font-family: Arial, Helvetica, sans-serif;
+    fill: rgba(80, 80, 80, 1);
+    font-weight: lighter;
+}
+
+text.legendText {
+    font-size: xx-small;
+    text-anchor: middle;
+}
+
+text.weekNumber {
+    font-size: xx-small;
+    text-anchor: middle;
+}
+
+text.dayOfTheWeek {
+    font-size: xx-small;
+    text-anchor: end;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+div#yearControl {
+    display: flex;
+    justify-content: space-around;
+}
+
+div#metricControl {
+    display: flex;
+    justify-content: space-around;
+}
+
+i#past {
+    cursor: pointer;
+}
+
+i#future {
+    cursor: pointer;
+}
