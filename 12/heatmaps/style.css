@@ -4,7 +4,7 @@ rect.day.empty {
 }
 
 rect.highlighted {
-    stroke-width: 1;
+    stroke-width: 2;
 }
 
 rect.lightened {
@@ -36,16 +36,23 @@ text.dayOfTheWeek {
     text-anchor: end;
 }
 
+text.tip {
+    font-size: small;
+    text-anchor: end;
+}
+
 .hidden {
     visibility: hidden;
 }
 
 div#yearControl {
+    width: 870px;
     display: flex;
     justify-content: space-around;
 }
 
 div#metricControl {
+    width: 870px;
     display: flex;
     justify-content: space-around;
 }

@@ -35,7 +35,7 @@ let futureTrigger = d3.select("#yearControl").select("i#future").on("click", fun
     metric = metricSelector.property("value")
     plotYear(year + 1, data, metric)
 })
-const isLeap = new Date(today.getFullYear(), 1, 29).getDate() === 29;
+
 const colourCode = {
     Volume: d3.interpolateBlues,
     Range: d3.interpolateOranges,
@@ -55,6 +55,11 @@ let legendGroupItem = legendGroup.append("g")
 let legendText = legendGroupItem
     .append("text")
     .attr("class", "legendText")
+
+const tipGroup = svg.append("g").attr("id", "tipGroup")
+    .attr("transform", `translate(${width - margin.sides}, ${height - 10})`)
+const tip1 = tipGroup.append("text").attr("id", "tip1").attr("class", "tip").attr("y", -10)
+const tip2 = tipGroup.append("text").attr("id", "tip2").attr("class", "tip").attr("y", 5)
 
 let scale = d3.scaleQuantize().range([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
@@ -95,8 +100,8 @@ d3.csv("data.csv").then(_data => {
     }) 
     data = _data
 
-    for (let metric of ["Volume", "Open", "Close", "High", "Low", "Range"]) {        
-        metricSelector.append("option").attr("value", metric).text(metric)
+    for (let _metric of ["Volume", "Open", "Close", "High", "Low", "Range"]) {        
+        metricSelector.append("option").attr("value", _metric).text(_metric)
         metricSelector.on("change", function() {
             metric = d3.select(this).property('value')
             year = +d3.select("#present").text()
@@ -196,16 +201,21 @@ function plotYear(year, data, metric) {
                 })
         }
     }
-    
-
 }
 
-function showTip() {
-    console.log(this)
+function showTip(d) {
+    item = d3.select(this)
+    if (!item.classed("empty")) {
+        item.classed("highlighted", true)
+        tip1.text(`Date: ${d.day} / ${d.month}`)
+        tip2.text(`${metric}: ${d[metric]} €`)
+    }
 }
 
 function hideTip() {
-    console.log()
+    d3.select(this).classed("highlighted", false)
+    tip1.text("")
+    tip2.text("")
 }
 
 function highlightLegend() {
