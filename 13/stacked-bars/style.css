@@ -1,0 +1,31 @@
+g.blood.O\+ {
+    fill: maroon;
+}
+
+g.blood.A\+ {
+    fill: rgb(185, 22, 185);
+}
+
+g.blood.B\+ {
+    fill: rgba(209, 12, 133, 0.8);
+}
+
+g.blood.AB\+ {
+    fill: pink;
+}
+
+g.blood.O− {
+    fill: rgb(10, 82, 216);
+}
+
+g.blood.A− {
+    fill: dodgerblue;
+}
+
+g.blood.B− {
+    fill: rgb(15, 201, 207);
+}
+
+g.blood.AB- {
+    fill: rgb(85, 240, 240);
+}

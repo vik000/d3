@@ -20,9 +20,10 @@ let arc = d3.arc()
     .innerRadius(radius - 40)
     .outerRadius(radius)
 
+let data;
 d3.json('data.json').then(_data => {
     // data transform
-    let data = pie(d3.entries(_data))
+    data = pie(d3.entries(_data))
 
     // data binding:
     let sector = elementGroup.selectAll('.sector').data(data)
@@ -65,14 +66,11 @@ function arcTween(newAngle) {
 
 function isolate(d, i, a) {
     // 1. modify data:
-    
-    newData = pie(d)
+    newData = pie([d.data])
     // 2. update arc:
-    
-    // 3. change animate:
-    // console.log(d)
-    // console.log(i)
-    // console.log(a)
-    console.log(d)
-
+    let sector = elementGroup.selectAll(".sector")
+    sector.each((d, i, a) => {
+        // d3.select(a[i]).call(update)
+        return d
+    });
 }

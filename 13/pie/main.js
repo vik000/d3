@@ -26,7 +26,8 @@ d3.json('data.json').then(_data => {
     sector.enter().append('path')
         .attr('class', 'sector')
         .attr('d', d3.arc()
-            .innerRadius(0)
+            // .innerRadius(0)
+            .innerRadius(radius - 40)
             .outerRadius(radius)
         )
 
