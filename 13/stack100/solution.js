@@ -31,13 +31,21 @@ d3.csv("data.csv").then(_data => {
         d.total = +d.field1 + +d.field2 + +d.field3
     })
 
+    // normalise data:
+    _data.forEach(d => {
+        d.field1 = +d.field1 * 100 / d.total
+        d.field2 = +d.field2 * 100 / d.total
+        d.field3 = +d.field3 * 100 / d.total
+    });
+
     // make stack
     let stacker = d3.stack().keys(categories)
     data = stacker(_data)
     // console.log(data)
 
     // y domain:
-    y.domain([0, d3.max(_data.map(d => d.total))])
+    y.domain([0, data[data.length - 1][0][1]])
+    // y.domain([0, d3.max(_data.map(d => d.total))])
 
     yAxisGroup.call(yAxis)
 
