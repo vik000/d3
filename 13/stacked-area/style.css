@@ -1,0 +1,50 @@
+g.Rodrigo {
+    fill: skyblue;
+}
+
+g.Diego {
+    fill: teal;
+}
+
+g.Roberto {
+    fill: rgb(12, 77, 63);
+}
+
+g.Jaime {
+    fill: rgb(18, 160, 42);
+}
+
+g.Juan {
+    fill: rgb(50, 180, 231);
+}
+
+g.Jorge {
+    fill: rgb(231, 50, 65);
+}
+
+g.Eric {
+    fill: rgb(155, 233, 30);
+}
+
+g.Miguel {
+    fill: rgb(203, 233, 30);
+}
+
+g.David {
+    fill: rgb(230, 210, 38);
+}
+
+g.soft {
+    fill-opacity: 0.1;
+}
+
+text#tooltip {
+    text-anchor: middle;
+    font-weight: bolder;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: x-large;
+}
+
+.hidden {
+    display: none;
+}
