@@ -20,7 +20,7 @@ let y = d3.scaleLinear().range([height - margin.top - margin.bottom, 0])
 let xAxis = d3.axisBottom().scale(x0)
 let yAxis = d3.axisLeft().scale(y)
 
-let data
+
 d3.csv("data.csv").then(data => {
     data.map(d => {
         d.field1 = +d.field1
