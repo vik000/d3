@@ -26,12 +26,9 @@ let tooltip = svg.append("text").attr("id", "tooltip")
 
 let data
 d3.csv("data.csv").then(_data => {
-    // keys = names
-    keys = [...new Set(_data.map(d => d.name))]
-
     // group by year:
-    let newData = []
     let yearValues = new Set(_data.map(d => +d.year))
+    let newData = []
     yearValues.forEach(year => {
         newEntry = {year: year}
         filteredYear = _data.filter(d => +d.year == year)
@@ -39,11 +36,16 @@ d3.csv("data.csv").then(_data => {
         newData.push(newEntry)
     });
 
+    // keys = names
+    keys = [...new Set(_data.map(d => d.name))]
+
     // domains:
     x.domain(d3.extent([...yearValues]))
     let stacker = d3.stack().keys(keys)
     data = stacker(newData)
     y.domain([0, d3.max(data[data.length -1].map(d => d[1]))])
+
+    console.log(data)
 
     xAxisGroup.call(xAxis)
     yAxisGroup.call(yAxis)
