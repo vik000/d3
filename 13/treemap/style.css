@@ -1,0 +1,15 @@
+rect.Europe {
+    fill: darkblue;
+}
+
+rect.Latam {
+    fill: yellowgreen;
+}
+
+rect.MENA {
+    fill: wheat
+}
+
+rect.USandCanada {
+    fill: skyblue;
+}

@@ -1,0 +1,97 @@
+{
+    "children": [
+      {
+        "division": "Europe",
+        "children": [
+          {
+            "division": "James",
+            "sales": 5
+          },
+          {
+            "division": "Helena",
+            "sales": 22
+          },
+          {
+            "division": "Owen",
+            "sales": 19
+          },
+          {
+            "division": "Ana",
+            "sales": 25
+          }
+        ]
+      },
+      {
+        "division": "US and Canada",
+        "children": [
+          {
+            "division": "John",
+            "sales": 32
+          },
+          {
+            "division": "Ellen",
+            "sales": 28
+          },
+          {
+            "division": "Brittany",
+            "sales": 26
+          },
+          {
+            "division": "Sandra",
+            "sales": 22
+          }
+        ]
+      },
+      {
+        "division": "MENA",
+        "children": [
+          {
+            "division": "Mo",
+            "sales": 8
+          },
+          {
+            "division": "Nadir",
+            "sales": 18
+          },
+          {
+            "division": "Nezar",
+            "sales": 11
+          },
+          {
+            "division": "Ali",
+            "sales": 25
+          },
+          {
+            "division": "Aziz",
+            "sales": 16
+          },
+          {
+            "division": "Sami",
+            "sales": 28
+          }
+        ]
+      },
+      {
+        "division": "Latam",
+        "children": [
+          {
+            "division": "Leo",
+            "sales": 63
+          },
+          {
+            "division": "Edison",
+            "sales": 78
+          },
+          {
+            "division": "Joao",
+            "sales": 45
+          },
+          {
+            "division": "Juan",
+            "sales": 61
+          }
+        ]
+      }
+    ],
+    "division": "CEO"
+  }
