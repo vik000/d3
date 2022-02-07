@@ -1,5 +1,5 @@
 rect.Europe {
-    fill: darkblue;
+    fill: rgb(91, 129, 185);
 }
 
 rect.Latam {
@@ -12,4 +12,13 @@ rect.MENA {
 
 rect.USandCanada {
     fill: skyblue;
+}
+
+text {
+    font-size: x-small;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.soft {
+    fill-opacity: 0.1;
 }
