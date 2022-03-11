@@ -2,16 +2,14 @@ var margin = {top: 20, right: 20, bottom: 120, left: 40},
     width = 1300 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
 
-var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
-var y = d3.scale.linear().range([height, 0]);
+var x = d3.scaleBand().range([0, width], .05);
+var y = d3.scaleLinear().range([height, 0]);
 
-var xAxis = d3.svg.axis()
+var xAxis = d3.axisBottom()
     .scale(x)
-    .orient("bottom");
 
-var yAxis = d3.svg.axis()
+var yAxis = d3.axisLeft()
     .scale(y)
-    .orient("left")
     .ticks(15).tickSize(-width);
 
 var svg = d3.select("#svg").append("svg")
@@ -20,7 +18,7 @@ var svg = d3.select("#svg").append("svg")
     .append("g")
         .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
-d3.json("data.json", function(error, data) {
+d3.json("data.json").then(data => {
     data = data.buildings;
     data.forEach(function(d) {
         d.height = +d.height;
@@ -54,7 +52,7 @@ d3.json("data.json", function(error, data) {
         .data(data)
     .enter().append("svg:image")
         .attr('href', function(d){ return `buildings/${d.image}`; })
-        .attr("x", function(d) { return x(d.name) + ((-this.getBBox().width + x.rangeBand())/2); })
+        .attr("x", function(d) { return x(d.name) + ((-this.getBBox().width + x.bandwidth())/2); })
         .attr("width", function(d, i, a) {return this.getBBox().width + 4;})
         .attr("y", function(d) { return y(d.height); })
         .attr("height", function(d) { return height - y(d.height); });
