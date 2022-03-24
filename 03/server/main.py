@@ -26,7 +26,7 @@ async def random_stocks(request):
     intc = round(random.randrange(43, 49) + random.random(), 2)
     csco = round(random.randrange(43, 51) + random.random(), 2)
     tsla = round(random.randrange(690, 713) + random.random(), 2)
-    r = {'MSFT': msft(), 'AAPL': aapl(), 'AMZN': amzn(), 'GOOG': goog(), 'FB': fb(), 'INTC': intc(), 'CSCO': csco(), 'TSLA': tsla()}
+    r = {'MSFT': msft, 'AAPL': aapl, 'AMZN': amzn, 'GOOG': goog, 'FB': fb, 'INTC': intc, 'CSCO': csco, 'TSLA': tsla}
     print('Stock values retrieved')
     return web.Response(text=json.dumps(r), headers={"X-Custom-Server-Header": "Custom data"}, status=200)
 
