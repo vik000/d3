@@ -1,0 +1,16 @@
+path {
+    fill: none;
+    stroke-width: 1;
+}
+
+path.max {
+    stroke: firebrick;
+}
+
+path.min {
+    stroke: aqua;
+}
+
+path.cork {
+    stroke-dasharray: 1 1;
+}

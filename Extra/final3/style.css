@@ -1,0 +1,7 @@
+.bar {
+    fill: cadetblue
+}
+
+.max.bar {
+    fill: crimson !important;
+}

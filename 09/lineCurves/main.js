@@ -59,8 +59,8 @@ let samplePath = svg.append("path").datum(data).attr('class', 'refPath').attr('d
 //curveLinear:
 let path = svg.append('path')
 path.datum(data)
-    .attr('d', d3.line().curve(curves.curveBasis()).x(d=>d.x).y(d=>d.y))
-    // .attr('d', d3.line().curve(curves.curveBasisClosed()).x(d=>d.x).y(d=>d.y))
+    // .attr('d', d3.line().curve(curves.curveBasis()).x(d=>d.x).y(d=>d.y))
+    .attr('d', d3.line().curve(curves.curveBasisClosed()).x(d=>d.x).y(d=>d.y))
     // .attr('d', d3.line().curve(curves.curveBundle(0)).x(d=>d.x).y(d=>d.y))
     // .attr('d', d3.line().curve(curves.curveCardinal(0)).x(d=>d.x).y(d=>d.y))
     // .attr('d', d3.line().curve(curves.curveCatmullRom(0)).x(d=>d.x).y(d=>d.y))
